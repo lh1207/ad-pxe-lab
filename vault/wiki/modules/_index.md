@@ -8,10 +8,9 @@ tags: [meta, modules]
 
 # Modules Index
 
-One entry per runbook phase. Source: `runbooks/*.md` on branch `claude/ad-pxe-lab-setup-ynkkcm`
-(commit `04e24ec`) — **not present on `main` yet**. Entries below are pre-seeded stubs from
-that branch's file headers; full module notes (one page per phase, using
-`_templates/module.md`) are pending ingestion.
+One entry per runbook phase. Source: `runbooks/*.md` (merged into `main` via PR #1). Entries
+below are pre-seeded stubs from each runbook's header; full module notes (one page per phase,
+using `_templates/module.md`) are pending ingestion.
 
 | Phase | Runbook | Resume bullet | Est. time | VMs on |
 |---|---|---|---|---|
@@ -30,5 +29,4 @@ that branch's file headers; full module notes (one page per phase, using
 
 ## Status
 
-Pending ingestion — see [[Index]] and vault `CLAUDE.md` for the `main` vs.
-`claude/ad-pxe-lab-setup-ynkkcm` caveat.
+Source files are on `main`. Full per-page ingestion into this wiki is still pending — say "ingest [file]" to do it.

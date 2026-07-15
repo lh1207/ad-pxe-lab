@@ -13,7 +13,7 @@ OS deployment pipeline, running entirely on one Hyper-V host. It teaches three w
 letting them collide: AD DS administration, standalone WDS imaging, and Configuration Manager
 (SCCM) operations, including a deliberate WDS → ConfigMgr PXE responder handoff.
 
-## Topology (as designed on `claude/ad-pxe-lab-setup-ynkkcm`)
+## Topology
 
 - **Host** — Hyper-V host, `LabSwitch` (Internal vSwitch, `10.0.100.0/24`) + `LabNAT` for outbound-only internet access. The lab is isolated from the physical LAN.
 - **DC01** (`10.0.100.10`) — AD DS, DNS, DHCP. Forest root `hufflab.internal` / `HUFFLAB`.
@@ -26,5 +26,5 @@ See [[Flows Index]] for the PXE boot sequence and the WDS→ConfigMgr handoff, a
 
 ## Status
 
-Scaffolded 2026-07-14. Real content ingestion is pending — see the caveat in the vault
-`CLAUDE.md` about `main` vs. `claude/ad-pxe-lab-setup-ynkkcm`.
+Scaffolded 2026-07-14. Source content (docs/runbooks/scripts) is on `main`; full per-page
+ingestion into this wiki is still pending.

@@ -8,9 +8,8 @@ tags: [meta, components]
 
 # Components Index
 
-Reusable scripts and artifacts. Source: `scripts/*` on branch `claude/ad-pxe-lab-setup-ynkkcm`
-(commit `04e24ec`) — **not present on `main` yet**. Full component notes (using
-`_templates/component.md`) are pending ingestion.
+Reusable scripts and artifacts. Source: `scripts/*` (merged into `main` via PR #1). Full
+component notes (using `_templates/component.md`) are pending ingestion.
 
 | Script | Purpose |
 |---|---|
@@ -24,5 +23,4 @@ Reusable scripts and artifacts. Source: `scripts/*` on branch `claude/ad-pxe-lab
 
 ## Status
 
-Pending ingestion — see [[Index]] and vault `CLAUDE.md` for the `main` vs.
-`claude/ad-pxe-lab-setup-ynkkcm` caveat.
+Source files are on `main`. Full per-page ingestion into this wiki is still pending — say "ingest [file]" to do it.

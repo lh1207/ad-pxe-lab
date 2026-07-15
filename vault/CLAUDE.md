@@ -40,12 +40,11 @@ vault/
 
 ## Known repo-state caveat
 
-As of 2026-07-14, the checked-out `main` branch only contains `LICENSE` and `README.md`.
-The full project content (`docs/architecture.md`, `docs/decisions.md`, `docs/ip-plan.md`,
-`docs/iso-checklist.md`, `runbooks/00-10-*.md`, `scripts/*.ps1`) lives on the
-`claude/ad-pxe-lab-setup-ynkkcm` branch (commit `04e24ec`). The `_index.md` pages under
-`wiki/` were pre-seeded from that branch's content but real ingestion (full module/decision/
-component notes) should happen after checking out or merging that branch.
+As of 2026-07-14, `main` merged in the full project content (`docs/architecture.md`,
+`docs/decisions.md`, `docs/ip-plan.md`, `docs/iso-checklist.md`, `runbooks/00-10-*.md`,
+`scripts/*.ps1`) via PR #1. The `_index.md` pages under `wiki/` were pre-seeded with
+summaries of that content at scaffold time; full per-page ingestion (one note per module/
+decision/component using `_templates/`) is still pending — say "ingest [file]" to do it.
 
 ## Operations
 

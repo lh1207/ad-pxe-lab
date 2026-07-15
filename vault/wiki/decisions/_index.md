@@ -8,10 +8,9 @@ tags: [meta, decisions]
 
 # Decisions Index
 
-Architecture Decision Records. Source: `docs/decisions.md` on branch
-`claude/ad-pxe-lab-setup-ynkkcm` (commit `04e24ec`) — **not present on `main` yet**. Full ADR
-notes (using `_templates/decision.md`) are pending ingestion; titles/status below are accurate
-summaries of that document.
+Architecture Decision Records. Source: `docs/decisions.md` (merged into `main` via PR #1). Full
+ADR notes (using `_templates/decision.md`) are pending ingestion; titles/status below are
+accurate summaries of that document.
 
 | ADR | Title | Status |
 |---|---|---|
@@ -27,5 +26,4 @@ summaries of that document.
 
 ## Status
 
-Pending ingestion — see [[Index]] and vault `CLAUDE.md` for the `main` vs.
-`claude/ad-pxe-lab-setup-ynkkcm` caveat.
+Source files are on `main`. Full per-page ingestion into this wiki is still pending — say "ingest [file]" to do it.

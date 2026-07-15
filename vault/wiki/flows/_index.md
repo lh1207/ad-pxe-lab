@@ -8,8 +8,8 @@ tags: [meta, flows]
 
 # Flows Index
 
-Cross-cutting operational flows. Pre-seeded from `docs/architecture.md` on branch
-`claude/ad-pxe-lab-setup-ynkkcm` — pending full ingestion via `_templates/flow.md`.
+Cross-cutting operational flows. Pre-seeded from `docs/architecture.md` (merged into `main`
+via PR #1) — pending full ingestion via `_templates/flow.md`.
 
 | Flow | Summary |
 |---|---|
@@ -19,5 +19,4 @@ Cross-cutting operational flows. Pre-seeded from `docs/architecture.md` on branc
 
 ## Status
 
-Pending ingestion — see [[Index]] and vault `CLAUDE.md` for the `main` vs.
-`claude/ad-pxe-lab-setup-ynkkcm` caveat.
+Source files are on `main`. Full per-page ingestion into this wiki is still pending — say "ingest [file]" to do it.
