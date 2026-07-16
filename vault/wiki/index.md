@@ -36,6 +36,8 @@ See [[Flows Index]].
 
 See [[Meta Index]] for conventions and lint reports.
 
+- [[Phase 1 Handoff — AD Foundation]] — execution handoff for runbooks 01–03 (`docs/handoffs/phase-01-handoff.md`)
+
 ## Sources ingested
 
 None yet — `.raw/` is empty. Drop exports/notes there and say "ingest [filename]" to begin.
