@@ -1,0 +1,149 @@
+﻿CapturedAt=2026-07-22T01:05:43.8957725-04:00
+VmState=Off
+Disk=G:\HyperV\ad-pxe-lab\VHD\DC01_4AD66FE5-A3B0-4B93-A6BF-58D1225A0C61.avhdx
+LogFile=I:\Windows\Panther\setuperr.log;Length=1246;LastWriteTime=2026-07-22T00:59:34.8360031-04:00
+LogFile=I:\Windows\Panther\setupact.log;Length=58334;LastWriteTime=2026-07-22T01:01:21.3057616-04:00
+LogFile=I:\Windows\Panther\UnattendGC\setuperr.log;Length=852;LastWriteTime=2026-07-22T01:01:39.8056142-04:00
+LogFile=I:\Windows\Panther\UnattendGC\setupact.log;Length=4838;LastWriteTime=2026-07-22T01:01:39.8056142-04:00
+Log=I:\Windows\Panther\setuperr.log
+2026-07-21 21:59:34, Error                 SYSPRP BCD: Failed to get system partition. Status: c0000452
+2026-07-21 21:59:34, Error                 SYSPRP Sysprep_Specialize_Bcd: There was an error opening the system store. Status=[0xC0000452]
+2026-07-21 21:59:34, Error                 SYSPRP ActionPlatform::LaunchModule: Failure occurred while executing 'Sysprep_Online_Specialize_Bcd' from C:\Windows\System32\spbcd.dll; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::ExecuteAction: Failed during sysprepModule operation; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::ExecuteInternal: Error in executing action for Microsoft-Windows-Sysprep-SpBcd; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::Execute: Error in executing actions from C:\Windows\System32\Sysprep\ActionFiles\Specialize.xml; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP RunPlatformActions:Failed while executing Sysprep session actions; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error      [0x0f0435] SYSPRP Callback_Specialize: An error occurred while either deciding if we need to specialize or while specializing; dwRet = 0x3bc3[gle=0x00000002]
+Log=I:\Windows\Panther\setupact.log
+2026-07-22 00:59:07, Info       [0x0601c1] IBS    InstallWindows:Install Path = C:\Windows\system32\oobe
+2026-07-22 00:59:07, Info       [0x0601c2] IBS    InstallWindows:Setup Phase = 4
+2026-07-22 00:59:07, Info       [0x0606cc] IBS    LogBootDeviceInfo:The firmware boot device ARC path is [multi(0)disk(0)rdisk(0)partition(2)] and NT path is [\Device\Harddisk0\Partition2].
+2026-07-22 00:59:07, Info       [0x0606cc] IBS    LogBootDeviceInfo:The system boot device ARC path is [multi(0)disk(0)rdisk(0)partition(4)] and NT path is [\Device\Harddisk0\Partition4].
+2026-07-22 00:59:07, Info                         [setup.exe] OrchestrateUpdateImageState: Updating image state from [IMAGE_STATE_GENERALIZE_RESEAL_TO_OOBE] --> [IMAGE_STATE_UNDEPLOYABLE]
+2026-07-22 00:59:07, Info       [0x0601ee] IBS    PrepareSetupForFirstBootPhase:Working directory is [C:\Windows\Panther]; we are starting an installation
+2026-07-22 00:59:07, Info       [0x0601cc] IBS    InstallWindows:Performing a new install from first boot phase. Working directory = C:\Windows\Panther
+2026-07-22 00:59:07, Info       [0x0601ce] IBS    Setup has started phase 4 at 2026-07-22 00:59:07
+2026-07-22 00:59:07, Info       [0x0601cf] IBS    Install source is C:\Windows\system32\oobe
+2026-07-22 00:59:07, Info       [0x0601d0] IBS    Build version is 10.0.26100.3624 (WinBuild.160101.0800)
+2026-07-22 00:59:07, Info       [0x064042] IBSLIB CreateSetupBlackboard:Creating new blackboard path is [C:\Windows\Panther\SetupInfo] Setup phase is [4]
+2026-07-22 00:59:07, Info       [0x090008] PANTHR CBlackboard::Open: C:\Windows\Panther\SetupInfo succeeded.
+2026-07-22 00:59:07, Info       [0x064043] IBSLIB CreateSetupBlackboard:Successfully created/opened Setup black board path is [C:\Windows\Panther\SetupInfo]
+2026-07-22 00:59:07, Info       [0x0601d5] IBS    InstallWindows:Starting with Empty Queue. Setup Phase = 4
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ScenarioDetect in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Engine in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Internal in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ErrorHandler in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Diagnostic in diagnostic.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Unattend in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ParseCommandLine in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Ems  in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module PrepareInstallDrive in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module TempDrive in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CopySetupFiles in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module BootPrep in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module BootEntries in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CopyPrivates in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ProductKey in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ComputerName in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module License in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module DiskInformation in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module FixBBPaths in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module DiskConfig in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module StorageConfig in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CreatePageFile in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Imaging in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CopyImages in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module DeployImages in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module DiskSpace in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Completion in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module MountDev in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Cmi in cmisetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module SystemRestore in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module FirstBootCleanup in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module RestartModule in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ExternalDrivers in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CBS in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module SkuAssembly in cmisetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module LanguagePack in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module HWRequirementsCheck in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module ConfigSet in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module UnattendImgInstall in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module CFGOfflineImage in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module PnP IBS module in pnpibs.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Compliance in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Rollback in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Locale in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Source media module in winsetup.dll
+2026-07-22 00:59:07, Info       [0x060359] IBS    Callback_ScenarioDetect:Setup is starting from [4] phase
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module OnlineUI in win32ui.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module OnlineProgress in spprgrss.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module OnlineSettings in winsetup.dll
+2026-07-22 00:59:07, Info       [0x0601a4] IBS    LoadWorkerModules:Successfully added worker module Sysprep in winsetup.dll
+2026-07-22 00:59:07, Info       [0x060004] IBS    Callback_UpdateDrivePathsOnBB:No need to update the blackboard paths.
+2026-07-22 00:59:07, Info       [0x070035] DIAG   CallBack_DiagnosticDataGeneration: Called with notification for Initialization
+2026-07-22 00:59:07, Info       [0x060258] IBS    GenerateName: Failed to read the Key UserData\FullName\Value from Blackboard defaulting to WIN
+2026-07-22 00:59:07, Info       [0x060259] IBS    GenerateName: Failed to read the Key UserData\OrgName\Value from Blackboard
+2026-07-22 00:59:07, Info       [0x06025d] IBS    Callback_ComputerName_Validate:Computer name is WIN-9AEO4D4Q88A
+2026-07-22 00:59:07, Info       [0x06025a] IBS    Callback_ComputerName_Generate:Computer name [WIN-9AEO4D4Q88A] is valid.
+2026-07-22 00:59:07, Info       [0x070035] DIAG   CallBack_DiagnosticDataGeneration: Called with notification for Initialization
+2026-07-22 00:59:10, Warning               SYSPRP SPPNP: Unable to alert install status thread. Error = 0x0000001f
+2026-07-22 00:59:10, Info                  SYSPRP ResetTSRDSAppXKeys status 0x00000000
+2026-07-22 00:59:10, Info                  SYSPRP Leaving LSMSysPrepRestoreOnline, status 0x00000000
+2026-07-22 00:59:10, Info                  SYSPRP PoSetupRestoreCustomizedPowerSettings, Error = 0
+2026-07-22 00:59:10, Info                  SYSPRP Leaving RdpSysPrepRestore, err = 0x00000000
+2026-07-22 00:59:10, Info                  SYSPRP AppxSysprepSpecializeOnline CleanupUpdatedApplicationsKey() result: 0x0.
+2026-07-22 00:59:10, Warning               SYSPRP DetermineIfReRegisterOnUpgrade: setupApplicationsKey.Open() failed 0x80070002, assuming Yes
+2026-07-21 21:59:30, Info                  SYSPRP Preregistered inbox packages with hr=0x00000000
+2026-07-21 21:59:30, Info                  SYSPRP Successfully pre-registered Microsoft.Windows.OOBENetworkConnectionFlow_10.0.26495.1000_neutral__cw5n1h2txyewy
+2026-07-21 21:59:30, Info                  SYSPRP Successfully pre-registered Microsoft.Windows.OOBENetworkCaptivePortal_10.0.26495.1000_neutral__cw5n1h2txyewy
+2026-07-21 21:59:34, Warning               SYSPRP Failed to pre-register package Microsoft.LockApp_10.0.26100.6725_neutral__cw5n1h2txyewy: 0x80070002.
+2026-07-21 21:59:34, Info                  SYSPRP Successfully pre-registered MicrosoftWindows.Client.OOBE_1000.26100.28.0_x64__cw5n1h2txyewy
+2026-07-21 21:59:34, Info                  SYSPRP GenerateBytecodeForPackages completed with 0x0.
+2026-07-21 21:59:34, Info                  SYSPRP Exiting AppxSysprepSpecializeOnline with 0x0.
+2026-07-21 21:59:34, Error                 SYSPRP BCD: Failed to get system partition. Status: c0000452
+2026-07-21 21:59:34, Error                 SYSPRP Sysprep_Specialize_Bcd: There was an error opening the system store. Status=[0xC0000452]
+2026-07-21 21:59:34, Error                 SYSPRP ActionPlatform::LaunchModule: Failure occurred while executing 'Sysprep_Online_Specialize_Bcd' from C:\Windows\System32\spbcd.dll; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::ExecuteAction: Failed during sysprepModule operation; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::ExecuteInternal: Error in executing action for Microsoft-Windows-Sysprep-SpBcd; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP SysprepSession::Execute: Error in executing actions from C:\Windows\System32\Sysprep\ActionFiles\Specialize.xml; dwRet = 0x3bc3
+2026-07-21 21:59:34, Error                 SYSPRP RunPlatformActions:Failed while executing Sysprep session actions; dwRet = 0x3bc3
+2026-07-21 21:59:34, Info                  SYSPRP Callback_Specialize: Internal Providers Specialized Failed. System can't proceed to handle Internal Providers
+2026-07-21 21:59:34, Error      [0x0f0435] SYSPRP Callback_Specialize: An error occurred while either deciding if we need to specialize or while specializing; dwRet = 0x3bc3[gle=0x00000002]
+2026-07-21 21:59:34, Info       [0x0640ae] IBSLIB PublishMessage: Publishing message [Windows Setup could not configure Windows to run on this computer's hardware.]
+2026-07-21 22:01:21, Info       [0x070042] DIAG   CallBack_DiagnosticDataSend: Called with notification for Error published by ErrorHandler
+2026-07-21 22:01:21, Info       [0x090095] PANTHR WdsExitImmediate called!  Execution will stop, and the queue won't be saved.
+2026-07-21 22:01:21, Info       [0x09008c] PANTHR SeqExecute -- stopping, since WdsExitImmediate() was called
+2026-07-21 22:01:21, Info       [0x090086] PANTHR pWorkerThreadFunc -- Stopping
+2026-07-21 22:01:21, Info       [0x090086] PANTHR pWorkerThreadFunc -- Stopping
+2026-07-21 22:01:21, Info       [0x090086] PANTHR pWorkerThreadFunc -- Stopping
+2026-07-21 22:01:21, Info       [0x0605a6] IBS    Requested UI to hide the language and locale selection pages.
+2026-07-21 22:01:21, Info       [0x090081] PANTHR Destroying any unreferenced modules! (SEQ6)
+2026-07-21 22:01:21, Info       [0x0601d7] IBS    InstallWindows:Error Type = 3211266
+2026-07-21 22:01:21, Info                  IBS    InstallWindows:Exiting with return code [0x1F]
+2026-07-21 22:01:21, Info       [0x090009] PANTHR CBlackboard::Close: c:\windows\panther\setupinfo.
+Log=I:\Windows\Panther\UnattendGC\setuperr.log
+2026-07-21 22:01:21, Error                        [windeploy.exe] Setup.exe failed, returning exit code [0x1f]
+2026-07-21 22:01:21, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8007001F]
+2026-07-21 22:01:28, Error                        [windeploy.exe] Found failed generalization state [6] --> system is in an invalid state
+2026-07-21 22:01:28, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8030000C]
+2026-07-21 22:01:39, Error                        [windeploy.exe] Found failed generalization state [6] --> system is in an invalid state
+2026-07-21 22:01:39, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8030000C]
+Log=I:\Windows\Panther\UnattendGC\setupact.log
+2026-07-22 00:59:07, Info                         [windeploy.exe] Waiting for essential OOBE services to start...
+2026-07-22 00:59:07, Info                         [windeploy.exe] Essential OOBE services started successfully.
+2026-07-22 00:59:07, Info                         [windeploy.exe] Found generalization state [0x4], setup.exe completion flag [False] --> launching setup.exe.
+2026-07-22 00:59:07, Info                         [windeploy.exe] Launching [C:\Windows\system32\oobe\setup.exe]...
+2026-07-22 00:59:10, Info                         [svchost.exe] Exit WinReIsWimBootEnabled returns 0 with last error: 0x2
+2026-07-21 22:01:21, Info                         [windeploy.exe] Process exited with exit code [0x1f]
+2026-07-21 22:01:21, Error                        [windeploy.exe] Setup.exe failed, returning exit code [0x1f]
+2026-07-21 22:01:21, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8007001F]
+2026-07-21 22:01:21, Info                         [windeploy.exe] WinDeploy.exe exiting with code [0x8007001f]
+2026-07-21 22:01:28, Info                         [windeploy.exe] Waiting for essential OOBE services to start...
+2026-07-21 22:01:28, Info                         [windeploy.exe] Essential OOBE services started successfully.
+2026-07-21 22:01:28, Error                        [windeploy.exe] Found failed generalization state [6] --> system is in an invalid state
+2026-07-21 22:01:28, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8030000C]
+2026-07-21 22:01:34, Info                         [windeploy.exe] WinDeploy.exe exiting with code [0x8030000c]
+2026-07-21 22:01:39, Info                         [windeploy.exe] Waiting for essential OOBE services to start...
+2026-07-21 22:01:39, Info                         [windeploy.exe] Essential OOBE services started successfully.
+2026-07-21 22:01:39, Error                        [windeploy.exe] Found failed generalization state [6] --> system is in an invalid state
+2026-07-21 22:01:39, Error                        [windeploy.exe] Failure occured during online installation; cannot complete at this time [0x8030000C]

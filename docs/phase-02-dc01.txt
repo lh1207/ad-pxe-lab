@@ -1,0 +1,46 @@
+﻿StartedAt=2026-07-22T01:42:39.5212512-04:00
+CheckpointVerified=pre-phase-02
+
+
+ComputerName   : DC01
+Time           : 07/22/2026 01:42:41 -04:00
+PSComputerName : DC01
+RunspaceId     : 5e06f15d-d87b-4e67-b603-e5724962c23a
+
+
+
+
+Initial guest configuration:
+
+
+ComputerName   : DC01
+AdapterAlias   : Ethernet
+OsVersion      : 10.0.26100.0
+Build          : 26100.32230
+UnattendExists : False
+PSComputerName : DC01
+RunspaceId     : 4ffdd5d3-b3cd-43d6-8e1c-559bdc8dcd03
+
+
+
+
+Windows Update scans:
+WindowsUpdateScan=Skipped after the initial Microsoft Update catalog search exceeded 15 minutes; integrated KB5073379/build 26100.32230 remains the promotion gate.
+Pre-promotion patch and DNS gate:
+
+
+PSComputerName : DC01
+RunspaceId     : 19bfa893-818b-45a4-9a5c-e7c54d835706
+Success        : True
+RestartNeeded  : Yes
+FeatureResult  : {Active Directory Administrative Center, AD DS Tools, AD DS Snap-Ins and Command-Line Tools, DNS
+                 Server Tools}
+ExitCode       : SuccessRestartRequired
+
+Build          : 26100.32230
+HotFixes       : {@{HotFixID=KB5101372; InstalledOn=7/22/2026 12:00:00 AM}, @{HotFixID=KB5099536;
+                 InstalledOn=7/22/2026 12:00:00 AM}, @{HotFixID=KB5100998; InstalledOn=7/22/2026 12:00:00 AM},
+                 @{HotFixID=KB5072725; InstalledOn=1/14/2026 12:00:00 AM}}
+DnsServers     : {10.0.100.10}
+PSComputerName : DC01
+RunspaceId     : 19bfa893-818b-45a4-9a5c-e7c54d835706

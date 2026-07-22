@@ -1,0 +1,11 @@
+﻿StartedAt=2026-07-22T01:08:31.2199644-04:00
+RemovedVmDefinition=DC01
+RemovedVmDefinition=WDS01
+RemovedDiskArtifact=G:\HyperV\ad-pxe-lab\VHD\DC01.vhdx
+RemovedDiskArtifact=G:\HyperV\ad-pxe-lab\VHD\WDS01.vhdx
+PreviousEfiGptType={ebd0a0a2-b9e5-4433-87c0-68b6b72699c7}
+CorrectedEfiGptType={c12a7328-f81f-11d2-ba4b-00a0c93ec93b}
+Performing the operation "Create Differencing VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\DC01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "DC01".
+Performing the operation "Create Differencing VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\WDS01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "WDS01".

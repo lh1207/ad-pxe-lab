@@ -1,0 +1,20 @@
+﻿
+Check                             Passed Detail
+-----                             ------ ------
+Windows PowerShell 5.1              True Desktop 5.1.26100.8875
+Hyper-V feature                     True Enabled
+Installed memory                    True 63 GB installed; 32 GB minimum
+Lab storage                         True 693 GB free on G:\; 500 GB minimum
+CPU virtualization                  True Firmware virtualization reported: False; hypervisor present: True
+Media: Win11                        True G:\HyperV\ad-pxe-lab\ISO\Windows_11_Enterprise_Evaluation.iso
+Media: WinPE                        True G:\HyperV\ad-pxe-lab\ISO\adkwinpesetup.exe
+Media: ConfigMgr                    True G:\HyperV\ad-pxe-lab\ISO\ConfigMgr_2509_Evaluation.exe
+Media: WS2025                       True G:\HyperV\ad-pxe-lab\ISO\Windows_Server_2025_Evaluation.iso
+Media: SQL2022                      True G:\HyperV\ad-pxe-lab\ISO\SQL_Server_2022_Evaluation.iso
+Media: WS2022                       True G:\HyperV\ad-pxe-lab\ISO\Windows_Server_2022_Evaluation.iso
+Media: ADK                          True G:\HyperV\ad-pxe-lab\ISO\adksetup.exe
+Syntax: 00-Test-HostReadiness.ps1   True No parser errors.
+Syntax: 01-New-LabSwitch.ps1        True No parser errors.
+Syntax: 02-New-LabParentDisk.ps1    True No parser errors.
+Syntax: 03-New-LabVM.ps1            True No parser errors.
+Syntax: 99-Remove-Lab.ps1           True No parser errors.

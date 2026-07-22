@@ -1,0 +1,41 @@
+﻿StartedAt=2026-07-22T00:30:13.2967381-04:00
+
+ImageIndex ImageName                                                      EditionId
+---------- ---------                                                      ---------
+         1 Windows Server 2025 Standard Evaluation
+         2 Windows Server 2025 Standard Evaluation (Desktop Experience)
+         3 Windows Server 2025 Datacenter Evaluation
+         4 Windows Server 2025 Datacenter Evaluation (Desktop Experience)
+
+
+Performing the operation "Create and apply read-only parent VHDX" on target
+"G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx".
+Boot files successfully created.
+
+
+Attached          : False
+BlockSize         : 0
+DevicePath        :
+FileSize          : 8152356864
+ImagePath         : G:\HyperV\ad-pxe-lab\ISO\Windows_Server_2025_Evaluation.iso
+LogicalSectorSize : 2048
+Number            :
+Size              : 8152356864
+StorageType       : 1
+PSComputerName    :
+
+Created read-only parent disk: G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+
+
+Path       : G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+IsReadOnly : True
+VhdType    : Dynamic
+VhdFormat  : VHDX
+Size       : 64424509440
+FileSize   : 15103688704
+Attached   : False
+
+
+
+
+CompletedAt=2026-07-22T00:35:59.7915517-04:00

@@ -1,0 +1,52 @@
+﻿StartedAt=2026-07-22T01:57:20.4153923-04:00
+
+
+ComputerName   : DC01
+Time           : 07/22/2026 01:57:22 -04:00
+PSComputerName : DC01
+RunspaceId     : 0485ce7a-052d-46fc-9c0c-bd4010932276
+
+
+
+
+Promotion prerequisite gate:
+
+
+Features         : {@{Name=AD-Domain-Services; InstallState=Installed}, @{Name=DNS; InstallState=Installed}}
+PendingReboot    : False
+ForestModeValues : {Win2008, Win2008R2, Win2012, Win2012R2...}
+PSComputerName   : DC01
+RunspaceId       : 9340b650-0d94-43ed-a976-4dd1862ad20e
+
+
+
+
+Forest promotion result:
+
+
+PSComputerName : DC01
+RunspaceId     : 0a110c6a-97a0-4261-973c-3e2b3ca9ed32
+Message        : You must restart this computer to complete the operation.
+
+Context        : DCPromo.General.4
+RebootRequired : True
+Status         : Success
+
+
+
+
+PowerShell Direct disconnected for the expected post-promotion restart.
+
+
+ComputerName   : DC01
+Time           : 07/22/2026 02:22:47 -04:00
+PSComputerName : DC01
+RunspaceId     : 809d4560-92d3-4bf9-9009-eb96d4bda00d
+
+
+
+
+FatalAt=2026-07-22T02:22:51.3857255-04:00
+FatalError=Failed to create zone 100.0.10.in-addr.arpa on server DC01.
+ScriptStack=at <ScriptBlock>, C:\HyperV\ad-pxe-lab\.codex-phase02-promote-dc01.ps1: line 69
+at <ScriptBlock>, C:\HyperV\ad-pxe-lab\.codex-phase02-promote-dc01.ps1: line 28

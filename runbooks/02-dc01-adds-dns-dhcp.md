@@ -20,8 +20,9 @@
 ## Steps
 
 1. Start DC01 and sign in as its local Administrator. Configure its adapter to static
-   `10.0.100.10/24`, default gateway `10.0.100.1`, and preferred DNS `10.0.100.10`. Set the computer
-   name to `DC01` if needed and reboot.
+   `10.0.100.10/24` with default gateway `10.0.100.1`. Use the external resolvers `1.1.1.1` and
+   `9.9.9.9` only during the pre-promotion patch step; DC01 cannot resolve through itself until DNS is
+   installed. Set the computer name to `DC01` if needed and reboot.
 
    Console path: **Server Manager > Local Server > Ethernet > Properties > Internet Protocol Version 4
    (TCP/IPv4)**. PowerShell equivalent:
@@ -29,7 +30,7 @@
    ```powershell
    Get-NetAdapter
    New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 10.0.100.10 -PrefixLength 24 -DefaultGateway 10.0.100.1
-   Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 10.0.100.10
+   Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 1.1.1.1, 9.9.9.9
    Rename-Computer -NewName DC01 -Restart
    ```
 
@@ -40,7 +41,11 @@
    ```powershell
    Remove-Item 'C:\Windows\Panther\unattend.xml' -Force
    Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10 HotFixID, InstalledOn
+   Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 10.0.100.10
    ```
+
+   Do not promote until the update has installed, the server has rebooted, and its only configured DNS
+   server is `10.0.100.10`.
 
    📸 Evidence: DC01 static IPv4 settings and installed KB5060842 or a later cumulative update.
 
@@ -69,13 +74,14 @@
    ```powershell
    Set-DnsServerForwarder -IPAddress 1.1.1.1, 9.9.9.9
    Add-DnsServerPrimaryZone -NetworkId '10.0.100.0/24' -ReplicationScope Domain
-   Set-DnsServerScavenging -ScavengingState $true -ApplyOnAllZones $true
+   Set-DnsServerScavenging -ScavengingState $true -ApplyOnAllZones
    ```
 
 5. Install DHCP, authorize it in AD, and create the scope. In **Server Manager > Manage > Add Roles and
    Features**, add **DHCP Server**, complete post-install configuration, and authorize DC01. In the DHCP
-   console, create scope `Lab-10.0.100.0`, range `10.0.100.100`–`10.0.100.199`, `/24` mask, 8-hour
-   lease, and exclusions for the reserved `.1`–`.99` addresses. Set only scope options 003 Router
+   console, create scope `Lab-10.0.100.0`, range `10.0.100.100`–`10.0.100.199`, `/24` mask, and an
+   8-hour lease. The reserved `.1`–`.99` addresses are already outside the pool, so no exclusion is
+   needed for them. Set only scope options 003 Router
    (`10.0.100.1`), 006 DNS Servers (`10.0.100.10`), and 015 DNS Domain Name (`hufflab.internal`).
 
    ```powershell
@@ -93,7 +99,7 @@
    📸 Evidence: DHCP authorization, active scope range, and scope options 003/006/015.
 
 6. Create or confirm checkpoint `pre-phase-03` after all verification passes. DC01 remains powered on
-   for the next phase.
+   for the next phase. Run this from the Hyper-V host, not inside DC01.
 
    ```powershell
    Checkpoint-VM -Name DC01 -SnapshotName pre-phase-03
@@ -111,20 +117,36 @@ Expected output includes `hufflab.internal`, `HUFFLAB`, and Windows Server 2025 
 
 ```powershell
 Resolve-DnsName DC01.hufflab.internal
-Get-DnsServerZone | Where-Object ZoneName -in 'hufflab.internal', '100.0.10.in-addr.arpa'
+Get-DnsServerZone | Where-Object ZoneName -in 'hufflab.internal', '100.0.10.in-addr.arpa' |
+  Select-Object ZoneName, IsDsIntegrated, ReplicationScope
 Get-DnsServerForwarder | Select-Object -ExpandProperty IPAddress
+Get-DnsServerScavenging | Select-Object ScavengingState
+Get-NetIPConfiguration -InterfaceAlias Ethernet
+Get-DnsClientServerAddress -InterfaceAlias Ethernet -AddressFamily IPv4
+Test-Path 'C:\Windows\Panther\unattend.xml'
+Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10 HotFixID, InstalledOn
+Get-ComputerInfo | Select-Object WindowsProductName, OsVersion, OsBuildNumber
 ```
 
-Expected output resolves DC01 to `10.0.100.10`, lists both zones, and lists `1.1.1.1` and `9.9.9.9`.
+Expected output resolves DC01 to `10.0.100.10`, lists both zones as AD-integrated, lists `1.1.1.1`
+and `9.9.9.9`, and shows scavenging enabled. DC01 retains static `10.0.100.10/24`, gateway
+`10.0.100.1`, and itself as its only DNS server. The answer-file test returns `False`; the installed
+updates show KB5060842 or a later cumulative update and its build has been recorded.
 
 ```powershell
 Get-DhcpServerInDC
 Get-DhcpServerv4Scope -ScopeId 10.0.100.0 | Select-Object ScopeId, StartRange, EndRange, LeaseDuration, State
-Get-DhcpServerv4OptionValue -ScopeId 10.0.100.0
+$scopeOptions = @(Get-DhcpServerv4OptionValue -ScopeId 10.0.100.0 -All)
+$serverOptions = @(Get-DhcpServerv4OptionValue -All)
+$scopeOptions
+$serverOptions
+$allOptions = $scopeOptions + $serverOptions
+if ($allOptions | Where-Object OptionId -in 60,66,67) { throw 'PXE DHCP option 60, 66, or 67 is configured.' }
 ```
 
 Expected output shows authorized DC01, active range `10.0.100.100`–`10.0.100.199`, an 8-hour lease,
-and options 003, 006, and 015 only; it must not show options 60, 66, or 67.
+and scope options 003, 006, and 015 only. Options 60, 66, and 67 must be absent at server and scope
+levels; the command throws if it finds one.
 
 ## Rollback
 

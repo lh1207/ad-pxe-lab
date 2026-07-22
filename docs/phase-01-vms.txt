@@ -1,0 +1,76 @@
+﻿StartedAt=2026-07-22T00:39:08.4349567-04:00
+Performing the operation "Create Dynamic VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\CL02.vhdx".
+Performing the operation "Create Generation 2 VM" on target "CL02".
+Performing the operation "Create Dynamic VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\CL01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "CL01".
+Performing the operation "Create Dynamic VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\REF01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "REF01".
+Performing the operation "Create Fixed VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\CM01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "CM01".
+Performing the operation "Create Differencing VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\DC01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "DC01".
+Performing the operation "Create Differencing VHDX" on target "G:\HyperV\ad-pxe-lab\VHD\WDS01.vhdx".
+Performing the operation "Create Generation 2 VM" on target "WDS01".
+Virtual machines:
+
+Name  Generation State ProcessorCount DynamicMemoryEnabled MemoryStartup
+----  ---------- ----- -------------- -------------------- -------------
+CL01           2   Off              2                 True    4294967296
+CL02           2   Off              2                 True    4294967296
+CM01           2   Off              4                False   17179869184
+DC01           2   Off              2                False    4294967296
+REF01          2   Off              2                 True    4294967296
+WDS01          2   Off              2                False    2147483648
+
+
+
+Network adapters:
+
+VMName SwitchName
+------ ----------
+CL01   LabSwitch
+CL02   LabSwitch
+CM01   LabSwitch
+DC01   LabSwitch
+REF01  LabSwitch
+WDS01  LabSwitch
+
+
+
+Hard disks:
+
+VMName Path
+------ ----
+CL01   G:\HyperV\ad-pxe-lab\VHD\CL01.vhdx
+CL02   G:\HyperV\ad-pxe-lab\VHD\CL02.vhdx
+CM01   G:\HyperV\ad-pxe-lab\VHD\CM01.vhdx
+DC01   G:\HyperV\ad-pxe-lab\VHD\DC01.vhdx
+REF01  G:\HyperV\ad-pxe-lab\VHD\REF01.vhdx
+WDS01  G:\HyperV\ad-pxe-lab\VHD\WDS01.vhdx
+
+
+
+Firmware and boot order:
+
+VMName SecureBoot SecureBootTemplate BootOrder
+------ ---------- ------------------ ---------
+CL01           On MicrosoftWindows   Network, Drive
+CL02           On MicrosoftWindows   Network, Drive
+CM01           On MicrosoftWindows   Drive, Network
+DC01           On MicrosoftWindows   Drive, Network
+REF01          On MicrosoftWindows   Drive, Drive, Network
+WDS01          On MicrosoftWindows   Drive, Network
+
+
+
+Differencing-disk parent verification:
+
+VMName      VhdType ParentPath
+------      ------- ----------
+DC01   Differencing G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+WDS01  Differencing G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+
+
+
+ParentIsReadOnly=True
+CompletedAt=2026-07-22T00:54:25.1447649-04:00

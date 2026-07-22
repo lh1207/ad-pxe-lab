@@ -2,7 +2,7 @@
 type: meta
 title: "Dependencies Index"
 created: 2026-07-14
-updated: 2026-07-14
+updated: 2026-07-21T23:14:46-04:00
 tags: [meta, dependencies]
 ---
 
@@ -14,7 +14,7 @@ External dependencies the lab relies on. Pre-seeded from `docs/architecture.md` 
 
 | Dependency | Used by | Notes |
 |---|---|---|
-| Hyper-V (Windows host role) | Host | `#Requires -Modules Hyper-V` on all scripts |
+| [[WOLF Hyper-V Host]] | Host | 64 GB nominal RAM, 16 logical processors, Hyper-V enabled; SSH control verified |
 | Windows Server 2025 Evaluation ISO | DC01, WDS01, CM01 parent VHDX | Server Desktop Experience image |
 | Windows 11 Enterprise Evaluation ISO | REF01, WDS install image | Reference/golden image source |
 | Server 2022 boot.wim | WDS01 standalone PXE | ADR-004 — do not substitute Win11/WS2025 boot.wim |

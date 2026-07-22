@@ -68,7 +68,7 @@
 
    ```powershell
    $adminPassword = Read-Host 'Local Administrator password' -AsSecureString
-   .\03-New-LabVM.ps1 -AdminPassword $adminPassword
+   .\03-New-LabVM.ps1 -LocalAdministratorPassword $adminPassword
    ```
 
 5. Inspect each VM's **Settings** in Hyper-V Manager. Confirm its processor, memory, disk, switch,
@@ -80,17 +80,37 @@
 ```powershell
 Get-VMSwitch -Name LabSwitch
 Get-NetNat -Name LabNAT
-Get-VM | Select-Object Name, Generation, State
+$config = Import-PowerShellDataFile .\scripts\lab.config.psd1
+$labVms = @(Get-VM -Name $config.VMs.Keys -ErrorAction Stop)
+if ($labVms.Count -ne $config.VMs.Count) { throw 'One or more configured lab VMs are missing.' }
+if ($labVms | Where-Object { $_.Generation -ne 2 -or $_.State -ne 'Off' }) {
+  throw 'Every configured lab VM must be Generation 2 and powered off at the Phase 01 boundary.'
+}
+$labVms | Select-Object Name, Generation, State, ProcessorCount, DynamicMemoryEnabled, MemoryStartup
+$labVms | Get-VMNetworkAdapter | Select-Object VMName, SwitchName
+$labVms | Get-VMHardDiskDrive | Select-Object VMName, Path
+$labVms | ForEach-Object {
+  Get-VMFirmware -VMName $_.Name | Select-Object VMName, SecureBoot, SecureBootTemplate, BootOrder
+}
 ```
 
 Expected output includes `LabSwitch`, `LabNAT` with internal prefix `10.0.100.0/24`, and six stopped
 Generation 2 VMs: `DC01`, `WDS01`, `CM01`, `CL01`, `CL02`, and `REF01`.
 
 ```powershell
-Get-VMFirmware -VMName CL01 | Select-Object -ExpandProperty BootOrder
+'CL01','CL02' | ForEach-Object {
+  Get-VMFirmware -VMName $_ | Select-Object -ExpandProperty BootOrder
+}
 ```
 
-Expected output: a network adapter precedes disk boot for CL01. CL02 is configured the same way.
+Expected output: a network adapter precedes disk boot for both CL01 and CL02.
+
+Confirm DC01 and WDS01 are differencing disks whose parent is the configured read-only VHDX:
+
+```powershell
+(Get-VHD -Path (Get-VMHardDiskDrive -VMName DC01).Path) | Select-Object VhdType, ParentPath
+(Get-VHD -Path (Get-VMHardDiskDrive -VMName WDS01).Path) | Select-Object VhdType, ParentPath
+```
 
 ```powershell
 (Get-Item (Import-PowerShellDataFile .\scripts\lab.config.psd1).Paths.ParentVhdx).IsReadOnly
