@@ -1,0 +1,50 @@
+﻿StartedAt=2026-07-22T02:39:52.6217653-04:00
+
+
+ComputerName   : DC01
+Time           : 07/22/2026 02:39:53 -04:00
+PSComputerName : DC01
+RunspaceId     : 61ce53fd-71e7-46fd-85a0-249deaf9ad86
+
+
+
+
+Phase 02 configuration and verification:
+
+
+DNSRoot                  : hufflab.internal
+NetBIOSName              : HUFFLAB
+DomainMode               : Windows2025Domain
+RootDomain               : hufflab.internal
+ForestMode               : Windows2025Forest
+Zones                    : {@{ZoneName=100.0.10.in-addr.arpa; IsDsIntegrated=True; ReplicationScope=Domain},
+                           @{ZoneName=hufflab.internal; IsDsIntegrated=True; ReplicationScope=Domain}}
+Forwarders               : {1.1.1.1, 9.9.9.9}
+Scavenging               : True
+IPv4                     : {10.0.100.10}
+Gateway                  : {10.0.100.1}
+DnsServers               : {10.0.100.10}
+UnattendExists           : False
+Build                    : 26100.33158
+HotFixes                 : {@{HotFixID=KB5101372; InstalledOn=7/22/2026 12:00:00 AM}, @{HotFixID=KB5099536;
+                           InstalledOn=7/22/2026 12:00:00 AM}, @{HotFixID=KB5100998; InstalledOn=7/22/2026 12:00:00
+                           AM}, @{HotFixID=KB5072725; InstalledOn=1/14/2026 12:00:00 AM}}
+DhcpInstallRestartNeeded : No
+DhcpAuthorized           : {@{DnsName=dc01.hufflab.internal; IPAddress=10.0.100.10}}
+Scope                    : @{ScopeId=10.0.100.0; StartRange=10.0.100.100; EndRange=10.0.100.199;
+                           LeaseDuration=08:00:00; State=Active}
+ScopeOptions             : {@{OptionId=15; Name=DNS Domain Name; Value=System.Collections.ArrayList}, @{OptionId=3;
+                           Name=Router; Value=System.Collections.ArrayList}, @{OptionId=6; Name=DNS Servers;
+                           Value=System.Collections.ArrayList}, @{OptionId=51; Name=Lease;
+                           Value=System.Collections.ArrayList}}
+ServerOptions            : {}
+Verification             : Passed
+PSComputerName           : DC01
+RunspaceId               : 54fb1d9f-a8f3-482f-935c-ba2b1677f8c5
+
+
+
+
+CheckpointVerified=pre-phase-03
+AutomaticCheckpointsEnabled=False for all lab VMs
+CompletedAt=2026-07-22T02:40:16.4388671-04:00

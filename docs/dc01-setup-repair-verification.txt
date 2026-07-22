@@ -1,0 +1,20 @@
+﻿VerifiedAt=2026-07-22T01:09:50.2927117-04:00
+
+Name  Generation State
+----  ---------- -----
+DC01           2   Off
+WDS01          2   Off
+
+
+
+
+VMName Path                                     VhdType ParentPath
+------ ----                                     ------- ----------
+DC01   G:\HyperV\ad-pxe-lab\VHD\DC01.vhdx  Differencing G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+WDS01  G:\HyperV\ad-pxe-lab\VHD\WDS01.vhdx Differencing G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx
+
+
+
+EfiPartitionNumber=2
+EfiGptType={c12a7328-f81f-11d2-ba4b-00a0c93ec93b}
+ParentIsReadOnly=True

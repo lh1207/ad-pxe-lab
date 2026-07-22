@@ -1,0 +1,38 @@
+﻿StartedAt=2026-07-22T00:28:45.1661351-04:00
+Pre-change inventory:
+
+Name           SwitchType NetAdapterInterfaceDescription
+----           ---------- ------------------------------
+Default Switch   Internal
+
+
+
+
+
+Host restore point created: AD PXE Lab pre-Phase-01
+Performing the operation "Create internal lab switch" on target "LabSwitch".
+Performing the operation "Assign host address 10.0.100.1" on target "vEthernet (LabSwitch)".
+Performing the operation "Create NAT for 10.0.100.0/24" on target "LabNAT".
+Post-change verification:
+
+Name      SwitchType
+----      ----------
+LabSwitch   Internal
+
+
+
+
+InterfaceAlias        IPAddress  PrefixLength
+--------------        ---------  ------------
+vEthernet (LabSwitch) 10.0.100.1           24
+
+
+
+
+Name   InternalIPInterfaceAddressPrefix
+----   --------------------------------
+LabNAT 10.0.100.0/24
+
+
+
+CompletedAt=2026-07-22T00:29:00.2011840-04:00

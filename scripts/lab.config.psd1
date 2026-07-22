@@ -22,10 +22,10 @@
     }
 
     Paths = @{
-        LabRoot         = 'C:\HyperV\ad-pxe-lab'
-        IsoDir          = 'C:\HyperV\ad-pxe-lab\ISO'
-        VhdDir          = 'C:\HyperV\ad-pxe-lab\VHD'
-        ParentVhdx      = 'C:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx'
+        LabRoot         = 'G:\HyperV\ad-pxe-lab'
+        IsoDir          = 'G:\HyperV\ad-pxe-lab\ISO'
+        VhdDir          = 'G:\HyperV\ad-pxe-lab\VHD'
+        ParentVhdx      = 'G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx'
         UnattendTemplate = 'unattend\unattend-server-base.xml'
         IsoFiles        = @{
             WS2025  = 'Windows_Server_2025_Evaluation.iso'
@@ -42,7 +42,7 @@
         SizeGB         = 60
         EfiPartitionMB = 260
         MsrPartitionMB = 16
-        ImageName      = 'Windows Server 2025 Standard (Desktop Experience)'
+        ImageName      = 'Windows Server 2025 Standard Evaluation (Desktop Experience)'
     }
 
     HostRequirements = @{

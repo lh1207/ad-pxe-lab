@@ -55,8 +55,13 @@ $freeGB = [math]::Floor($disk.FreeSpace / 1GB)
 $results += New-ReadinessResult -Check 'Lab storage' -Passed ($freeGB -ge $config.HostRequirements.MinimumFreeDiskGB) -Detail ("{0} GB free on {1}; {2} GB minimum" -f $freeGB, $driveRoot, $config.HostRequirements.MinimumFreeDiskGB)
 
 $processor = Get-CimInstance -ClassName Win32_Processor | Select-Object -First 1
-$virtualizationEnabled = [bool]$processor.VirtualizationFirmwareEnabled
-$results += New-ReadinessResult -Check 'CPU virtualization' -Passed $virtualizationEnabled -Detail ("Firmware virtualization enabled: {0}" -f $virtualizationEnabled)
+$firmwareVirtualizationEnabled = [bool]$processor.VirtualizationFirmwareEnabled
+$hypervisorPresent = [bool]$computer.HypervisorPresent
+$virtualizationEnabled = $firmwareVirtualizationEnabled -or $hypervisorPresent
+$results += New-ReadinessResult -Check 'CPU virtualization' -Passed $virtualizationEnabled -Detail (
+    'Firmware virtualization reported: {0}; hypervisor present: {1}' -f
+        $firmwareVirtualizationEnabled, $hypervisorPresent
+)
 
 foreach ($media in $config.Paths.IsoFiles.GetEnumerator()) {
     $mediaPath = Join-Path -Path $config.Paths.IsoDir -ChildPath $media.Value

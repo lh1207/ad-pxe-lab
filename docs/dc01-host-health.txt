@@ -1,0 +1,41 @@
+﻿CapturedAt=2026-07-22T02:21:07.4306704-04:00
+
+
+Name                       : DC01
+State                      : Running
+Uptime                     : 00:30:44.8210000
+CPUUsage                   : 0
+MemoryAssigned             : 4294967296
+Status                     : Operating normally
+PrimaryStatusDescription   : Operating normally
+SecondaryStatusDescription :
+
+
+
+
+
+Name                    Enabled PrimaryStatusDescription SecondaryStatusDescription
+----                    ------- ------------------------ --------------------------
+Guest Service Interface   False OK
+Heartbeat                  True OK
+Key-Value Pair Exchange    True OK
+Shutdown                   True OK
+Time Synchronization       True OK
+VSS                        True OK
+
+
+
+
+
+VMName      : DC01
+SwitchName  : LabSwitch
+Status      : {Ok}
+IPAddresses : {10.0.100.10, fe80::8ba6:3baa:e16:e9a4}
+
+
+
+
+
+Name         CreationTime         SnapshotType
+----         ------------         ------------
+pre-phase-02 7/22/2026 1:11:07 AM     Standard

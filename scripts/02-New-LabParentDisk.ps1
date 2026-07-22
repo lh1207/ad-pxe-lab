@@ -60,7 +60,8 @@ try {
     $mountedVhd = $true
     $disk = Get-DiskImage -ImagePath $parentPath | Get-Disk
     Initialize-Disk -Number $disk.Number -PartitionStyle GPT | Out-Null
-    $efi = New-Partition -DiskNumber $disk.Number -Size ($config.ParentDisk.EfiPartitionMB * 1MB) -AssignDriveLetter
+    $efi = New-Partition -DiskNumber $disk.Number -Size ($config.ParentDisk.EfiPartitionMB * 1MB) `
+        -AssignDriveLetter -GptType '{C12A7328-F81F-11D2-BA4B-00A0C93EC93B}'
     Format-Volume -Partition $efi -FileSystem FAT32 -NewFileSystemLabel 'SYSTEM' -Confirm:$false | Out-Null
     New-Partition -DiskNumber $disk.Number -Size ($config.ParentDisk.MsrPartitionMB * 1MB) -GptType '{E3C9E316-0B5C-4DB8-817D-F92DF00215AE}' | Out-Null
     $os = New-Partition -DiskNumber $disk.Number -UseMaximumSize -AssignDriveLetter

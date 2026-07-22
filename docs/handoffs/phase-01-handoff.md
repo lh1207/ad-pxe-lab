@@ -36,7 +36,7 @@ source of truth.
       `LabP@ss2026!` example. Do not reuse one password across the nine Phase 03 accounts. Never place
       a password in scripts, transcripts, screenshots, source control, or command history. Scripts
       prompt via `Read-Host -AsSecureString`.
-- [ ] **Media downloaded, SHA-256 recorded, and placed in `IsoDir`** (`C:\HyperV\ad-pxe-lab\ISO`).
+- [ ] **Media downloaded, SHA-256 recorded, and placed in `IsoDir`** (`G:\HyperV\ad-pxe-lab\ISO`).
       Use the exact configured filenames from `scripts/lab.config.psd1` → `Paths.IsoFiles` for the
       core media. Stage 1 needs the Windows Server 2025 evaluation ISO
       (`Windows_Server_2025_Evaluation.iso`); Windows 11, Server 2022, SQL, ConfigMgr, ADK, and WinPE
@@ -69,10 +69,10 @@ All values are authoritative from [`scripts/lab.config.psd1`](../../scripts/lab.
 
 | Paths | Value |
 |---|---|
-| Lab root | `C:\HyperV\ad-pxe-lab` |
-| ISO dir | `C:\HyperV\ad-pxe-lab\ISO` |
-| VHD dir | `C:\HyperV\ad-pxe-lab\VHD` |
-| Parent disk | `C:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx` (read-only, never booted) |
+| Lab root | `G:\HyperV\ad-pxe-lab` |
+| ISO dir | `G:\HyperV\ad-pxe-lab\ISO` |
+| VHD dir | `G:\HyperV\ad-pxe-lab\VHD` |
+| Parent disk | `G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx` (read-only, never booted) |
 
 **VM / RAM master table** — budget is **28 GB** of VM allocation (leaves ≥ 4 GB for the host). Start
 only the active phase's VMs.
