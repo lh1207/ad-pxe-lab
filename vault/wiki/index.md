@@ -1,7 +1,7 @@
 ---
 type: meta
 title: "Index"
-updated: 2026-07-14T00:00:00
+updated: 2026-07-21T23:38:16-04:00
 ---
 
 # Index
@@ -28,6 +28,9 @@ See [[Decisions Index]].
 
 See [[Dependencies Index]].
 
+- [[WOLF Hyper-V Host]] — verified Windows Hyper-V execution host with a ready SSH/Codex desktop
+  handoff path
+
 ## Flows
 
 See [[Flows Index]].
@@ -36,7 +39,8 @@ See [[Flows Index]].
 
 See [[Meta Index]] for conventions and lint reports.
 
-- [[Phase 1 Handoff — AD Foundation]] — execution handoff for runbooks 01–03 (`docs/handoffs/phase-01-handoff.md`)
+- [[Phase 1 Handoff — AD Foundation]] — audited execution handoff for runbooks 01–03, with the
+  synchronized runbook corrections and evidence notebook (`docs/handoffs/phase-01-handoff.md`)
 
 ## Sources ingested
 

@@ -40,7 +40,8 @@ behind each major choice in the [architecture decisions](docs/decisions.md).
 
 1. Read [conventions](runbooks/00-conventions.md), then obtain and record the required media in
    the [ISO checklist](docs/iso-checklist.md).
-2. On the Hyper-V host, run the readiness check and complete [Phase 01](runbooks/01-host-prep.md).
+2. On the Hyper-V host, use the [Stage 1 execution handoff](docs/handoffs/phase-01-handoff.md) as the
+   operator overview and complete the authoritative [Phase 01 runbook](runbooks/01-host-prep.md).
    Scripts create only the foundation and base OS; they do not configure product roles.
 3. Work through Phases 02–10 in order, taking the named Hyper-V checkpoint before each phase and
    recording results in the [lab notebook](docs/lab-notebook.md).
@@ -86,7 +87,8 @@ with SQL and WSUS on CM01 to fit the budget, and the same-subnet design needs ne
 ## Repository index
 
 - **Docs:** [architecture](docs/architecture.md), [IP plan](docs/ip-plan.md),
-  [decisions](docs/decisions.md), [ISO checklist](docs/iso-checklist.md), and
+  [decisions](docs/decisions.md), [ISO checklist](docs/iso-checklist.md),
+  [Stage 1 execution handoff](docs/handoffs/phase-01-handoff.md), and
   [lab notebook](docs/lab-notebook.md).
 - **Runbooks:** [conventions](runbooks/00-conventions.md), [Phases 01–03](runbooks/01-host-prep.md),
   [04](runbooks/04-wds-pxe-deploy.md), [05](runbooks/05-gpo-suite.md),

@@ -35,6 +35,12 @@ function New-ReadinessResult {
 $config = Import-PowerShellDataFile -Path $ConfigPath
 $results = @()
 
+$isWindowsPowerShell51 = $PSVersionTable.PSEdition -eq 'Desktop' -and
+    $PSVersionTable.PSVersion -ge [version]'5.1'
+$results += New-ReadinessResult -Check 'Windows PowerShell 5.1' -Passed $isWindowsPowerShell51 -Detail (
+    '{0} {1}' -f $PSVersionTable.PSEdition, $PSVersionTable.PSVersion
+)
+
 $feature = Get-WindowsOptionalFeature -Online -FeatureName 'Microsoft-Hyper-V-All'
 $results += New-ReadinessResult -Check 'Hyper-V feature' -Passed ($feature.State -eq 'Enabled') -Detail $feature.State
 

@@ -33,10 +33,11 @@
    the PowerShell equivalent where one exists, and mark screenshot-worthy outcomes with
    **📸 Evidence:**.
 
-3. Use named Hyper-V checkpoints immediately before each execution phase: `pre-phase-01`,
-   `pre-phase-02`, and so on. In **Hyper-V Manager**, select each affected VM, then **Action >
-   Checkpoint** and rename it. Do not checkpoint while an installation is actively writing a large
-   image.
+3. Use named Hyper-V checkpoints immediately before each execution phase that changes an existing VM:
+   `pre-phase-02`, `pre-phase-03`, and so on. Phase 01 has no VMs to checkpoint, so use a host restore
+   point or lab-directory backup instead. In **Hyper-V Manager**, select each affected VM, then
+   **Action > Checkpoint** and rename it. Do not checkpoint while an installation is actively writing
+   a large image.
 
    ```powershell
    Checkpoint-VM -Name DC01 -SnapshotName pre-phase-02
@@ -103,7 +104,7 @@ as a substitute for a system-state backup once AD DS exists.
 ## Troubleshoot
 
 1. **The host becomes sluggish or memory pressure is high.** Check active VM memory and power off
-   VMs not named in the current phase. Do not exceed 28 GB of VM allocation.
+   VMs not named in the current phase. Do not exceed 28 GB of concurrently running VM allocation.
 
    ```powershell
    Get-VM | Where-Object State -eq Running | Select-Object Name, MemoryAssigned

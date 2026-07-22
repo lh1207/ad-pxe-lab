@@ -53,23 +53,32 @@
 
 3. Create the named people and service accounts. In **Active Directory Users and Computers**, right-click
    the target OU, choose **New > User**, and assign a unique password that is not the example. Create
-   `lhuff` under Users as the daily driver, `adm-lhuff` under Admins as the separate administrator, the
-   two service accounts under ServiceAccounts, and the five sample department users in their matching
-   OUs. Set service accounts to non-interactive use. Consider adding `adm-lhuff` to Protected Users only
-   after understanding its authentication restrictions.
+   `lhuff` under Users as the daily driver, `adm-lhuff` under Admins as the separate administration
+   identity, the two service accounts under ServiceAccounts, and the five sample department users in
+   their matching OUs. The OU placement documents intended use; this phase does not yet grant
+   `adm-lhuff` administrative rights or implement service-account logon restrictions. Add only the
+   minimum delegation and user-right assignments required by later phases. Consider adding
+   `adm-lhuff` to Protected Users only after understanding its authentication restrictions.
 
    ```powershell
-   $password = Read-Host 'Password for lab user accounts' -AsSecureString
    $usersRoot = "OU=Users,$root"
-   New-ADUser -Name 'Levi Huff' -SamAccountName lhuff -Path $usersRoot -Enabled $true -AccountPassword $password
-   New-ADUser -Name 'Levi Huff (Admin)' -SamAccountName adm-lhuff -Path "OU=Admins,$root" -Enabled $true -AccountPassword $password
+   function New-LabAdUser {
+     param([string]$Name, [string]$SamAccountName, [string]$Path)
+     $password = Read-Host "Unique password for $SamAccountName" -AsSecureString
+     New-ADUser -Name $Name -SamAccountName $SamAccountName -Path $Path -Enabled $true -AccountPassword $password
+   }
+   New-LabAdUser -Name 'Levi Huff' -SamAccountName lhuff -Path $usersRoot
+   New-LabAdUser -Name 'Levi Huff (Admin)' -SamAccountName adm-lhuff -Path "OU=Admins,$root"
    'svc-sccm-push','svc-sccm-na' | ForEach-Object {
-     New-ADUser -Name $_ -SamAccountName $_ -Path "OU=ServiceAccounts,$root" -Enabled $true -AccountPassword $password
+     New-LabAdUser -Name $_ -SamAccountName $_ -Path "OU=ServiceAccounts,$root"
    }
    @{ 'hr.jones'='HR'; 'hr.smith'='HR'; 'fin.brown'='Finance'; 'it.davis'='IT'; 'eng.miller'='Engineering' }.GetEnumerator() | ForEach-Object {
-     New-ADUser -Name $_.Key -SamAccountName $_.Key -Path "OU=$($_.Value),OU=Users,$root" -Enabled $true -AccountPassword $password
+     New-LabAdUser -Name $_.Key -SamAccountName $_.Key -Path "OU=$($_.Value),OU=Users,$root"
    }
    ```
+
+   Enter a different unique lab-only password at each prompt. Do not reuse the example from the
+   conventions.
 
    `svc-sccm-push` is reserved for Configuration Manager client push. `svc-sccm-na` is the network
    access account learning artifact; modern Configuration Manager uses Enhanced HTTP over NAA where
@@ -108,7 +117,7 @@
    domain-local access group.
 
 6. Document the result in the lab notebook and create `pre-phase-04` only after the verification
-   commands succeed.
+   commands succeed. Run the checkpoint command from the Hyper-V host, not inside DC01.
 
    ```powershell
    Checkpoint-VM -Name DC01 -SnapshotName pre-phase-04
@@ -117,22 +126,34 @@
 ## Verify
 
 ```powershell
-Get-ADOrganizationalUnit -Filter 'Name -eq "HUFFLAB" -or Name -in ("Admins","ServiceAccounts","Users","Groups","Workstations","Servers")' |
-  Select-Object Name, DistinguishedName
+$domainDn = (Get-ADDomain).DistinguishedName
+@(
+  "OU=HUFFLAB,$domainDn"
+  'Admins','ServiceAccounts','Users','Groups','Workstations','Servers' |
+    ForEach-Object { "OU=$_,OU=HUFFLAB,$domainDn" }
+  'IT','HR','Finance','Engineering' |
+    ForEach-Object { "OU=$_,OU=Users,OU=HUFFLAB,$domainDn" }
+  'Role','Access' |
+    ForEach-Object { "OU=$_,OU=Groups,OU=HUFFLAB,$domainDn" }
+) | ForEach-Object {
+  Get-ADOrganizationalUnit -Identity $_ -Properties ProtectedFromAccidentalDeletion
+} | Select-Object Name, DistinguishedName, ProtectedFromAccidentalDeletion
+Get-ADDomain | Select-Object UsersContainer, ComputersContainer
 ```
 
-Expected output includes the HUFFLAB root and all six first-level OUs. The Users and Groups child OUs
-also appear when queried beneath their distinguished names.
+Expected output includes the HUFFLAB root, all six first-level OUs, the four department OUs, and the
+Role and Access OUs. Every OU reports `ProtectedFromAccidentalDeletion` as `True`; the default users
+and computers containers point to the HUFFLAB Users and Workstations OUs.
 
 ```powershell
 @('lhuff','adm-lhuff','svc-sccm-push','svc-sccm-na','hr.jones','hr.smith','fin.brown','it.davis','eng.miller') |
-  ForEach-Object { Get-ADUser -Identity $_ } | Select-Object SamAccountName, Enabled
+  ForEach-Object { Get-ADUser -Identity $_ } | Select-Object SamAccountName, Enabled, DistinguishedName
 @('RG-IT-Helpdesk','RG-HR-Staff','RG-Fin-Staff','AG-Share-HR-Modify','AG-WKS-LocalAdmin') |
-  ForEach-Object { Get-ADGroup -Identity $_ } | Select-Object Name, GroupScope
+  ForEach-Object { Get-ADGroup -Identity $_ } | Select-Object Name, GroupScope, GroupCategory, DistinguishedName
 ```
 
-Expected output lists all nine enabled user accounts and the three Global role groups plus two
-DomainLocal access groups.
+Expected output lists all nine enabled user accounts in their intended OUs and the three Global role
+groups plus two DomainLocal access groups, all Security groups in their intended OUs.
 
 ```powershell
 Get-ADGroupMember RG-HR-Staff | Select-Object SamAccountName

@@ -26,8 +26,9 @@ The Hyper-V host provides NAT only through `LabNAT`; it is not an AD DS, DNS, or
 
 DC01 hosts an AD-authorized DHCP scope for `10.0.100.100–10.0.100.199` with a `/24` mask,
 router `10.0.100.1`, DNS server `10.0.100.10`, and an eight-hour lease. The DNS server hosts
-the AD-integrated forward zone `hufflab.internal` and reverse zone `100.0.10.in-addr.arpa`;
-configure `1.1.1.1` and `9.9.9.9` as forwarders and enable scavenging after the lab is stable.
+the AD-integrated forward zone `hufflab.internal` and reverse zone `100.0.10.in-addr.arpa`.
+Configure `1.1.1.1` and `9.9.9.9` as forwarders, enable scavenging during Phase 02, and confirm its
+state after the DNS and DHCP checks are stable.
 
 The PXE clients and their responder are on the same broadcast domain. Keep that topology
 simple during the lab: validate DHCP leases and the selected responder during each PXE phase,

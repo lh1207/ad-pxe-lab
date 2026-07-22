@@ -1,35 +1,37 @@
 ---
 type: meta
 title: "Hot Cache"
-updated: 2026-07-15T00:00:00
+updated: 2026-07-21T23:38:16-04:00
 ---
 
 # Recent Context
 
 ## Last Updated
-2026-07-15. Authored the first execution handoff and saved a decision note about it.
+2026-07-21. Verified WOLF as the live Windows Hyper-V execution host and mapped the supported Codex
+desktop handoff path.
 
 ## Key Recent Facts
-- New repo artifact family: **`docs/handoffs/`**. First doc is
-  `docs/handoffs/phase-01-handoff.md` — an actionable execution brief for **Stage 1 = runbooks
-  01–03** (host prep → DC01 AD DS/DNS/DHCP → AD structure/AGDLP). See
-  [[Phase 1 Handoff — AD Foundation]].
-- **Two "phase" numberings converge on runbook 01**: repo-dev "(Phase 0)" = authoring all
-  runbooks/scripts/docs (done, PR #1); runbook execution phases `00`–`10` live in `runbooks/`.
-  "Phase 1 handoff" = begin execution at runbook `01`, with Phase 0 groundwork assumed complete.
-- The handoff draws every concrete value verbatim from `scripts/lab.config.psd1` and runbooks
-  01–03 (subnet `10.0.100.0/24`, forest `hufflab.internal`, DHCP scope `.100`–`.199` options
-  003/006/015-only, KB5060842 patch gate, FL 10). Zero drift verified.
-- Vault still uses direct filesystem Read/Write/Edit (no MCP/CLI, no `.vault-meta`, no lock/mode
-  tooling). Repo vault folders: modules, components, decisions, dependencies, flows, meta.
+- [[WOLF Hyper-V Host]] is the live execution dependency. Management endpoint:
+  `WOLF\sparrow@192.168.50.10`; public-key SSH from the Mac Codex environment works.
+- Verified: elevated Windows PowerShell `5.1.26100.8875`, 63.7 GB usable RAM (64 GB nominal), 16
+  logical processors, Hyper-V enabled, working Hyper-V module/host API, and zero current VMs.
+- SSH is the primary repeatable automation and evidence channel. Parsec remains a user-controlled
+  visual fallback. The current CLI session cannot directly operate the Parsec desktop.
+- The current task is ready to move from the Mac desktop app to WOLF with an SSH host handoff. Live
+  checks confirm the `wolf` Mac SSH alias, Git and authenticated Codex on WOLF's SSH `PATH`, and a
+  matching `C:\HyperV\ad-pxe-lab` checkout on `milestone/phase2`.
+- `docs/handoffs/phase-01-handoff.md` is the audited operator overview for Stage 1 (runbooks 01–03),
+  and `docs/lab-notebook.md` is the evidence destination.
+- WOLF's physical-LAN address is management-only. The future `10.0.100.0/24` lab network remains an
+  isolated Hyper-V internal switch behind `LabNAT`.
 
 ## Open Follow-ups
-- `docs/lab-notebook.md` is referenced by README + runbooks but **does not exist yet** — it is the
-  target for all 📸 evidence. Candidate to scaffold.
-- README repository index does not yet link `docs/handoffs/`.
-- Full per-page vault ingestion (one note per module/decision/component) still pending — only
-  `_index.md` stubs plus this new meta note exist.
+- In the Mac app, enable `wolf` under **Settings > Connections**, save the WOLF repository as the
+  remote project, and use the task footer to hand off this task.
+- After handoff, run the Phase 01 readiness script on WOLF.
+- Verify media, SHA-256 records, free lab storage, firmware virtualization, and configured lab paths.
+- Execute Stage 1 and replace notebook placeholders with real evidence and variances.
 
 ## Active Threads
-- The handoff file is unstaged in the working tree (not committed). Optional next steps offered:
-  README link, lab-notebook scaffold, `!codex` drift pass.
+- The host control plane is proven. Phase 01 infrastructure creation has not started; WOLF reports
+  `VMCount=0`.

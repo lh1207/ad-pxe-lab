@@ -17,9 +17,9 @@ golden image (06), and the ConfigMgr line (07–10). Do not build any of those h
 DHCP scope you create in Phase 02 must already respect the single-PXE-responder rule (no options
 60/66/67), because that scope survives into the WDS/ConfigMgr work.
 
-Work the phases **in order**. Take the named Hyper-V checkpoint before each phase, capture every
-📸 evidence item into `docs/lab-notebook.md`, and do not advance until that phase's **Verify** block
-passes.
+Work the phases **in order**. Use a host restore point or directory backup before Phase 01 and the
+named Hyper-V checkpoints before Phases 02–03. Capture every 📸 evidence item into
+`docs/lab-notebook.md`, and do not advance until that phase's **Verify** block passes.
 
 ---
 
@@ -32,14 +32,16 @@ source of truth.
 - [ ] **Conventions adopted.** Forest `hufflab.internal`, NetBIOS `HUFFLAB`, servers `DC01`/`WDS01`/
       `CM01`, `HUFFLAB-` artifact prefix. Checkpoint (`pre-phase-NN`) and 📸 evidence discipline
       understood. RAM master table and the "start only the active phase's VMs" rule in effect.
-- [ ] **Secure lab password chosen.** A unique value you control — **never** the `LabP@ss2026!`
-      example. Never placed in scripts, transcripts, screenshots, source control, or command history.
-      Scripts prompt for it via `Read-Host -AsSecureString`.
-- [ ] **Media downloaded, SHA-256 recorded, and placed in `IsoDir`** (`C:\HyperV\ad-pxe-lab\ISO`)
-      with the exact filenames from `scripts/lab.config.psd1` → `Paths.IsoFiles`. Stage 1 needs the
-      Windows Server 2025 evaluation ISO (`Windows_Server_2025_Evaluation.iso`); the remaining media
-      (`Windows_11_Enterprise_Evaluation.iso`, `Windows_Server_2022_Evaluation.iso`, SQL, ConfigMgr,
-      ADK, WinPE) is required by later phases but should already be inventoried.
+- [ ] **Secure lab passwords chosen.** Use unique lab-only values you control — **never** the
+      `LabP@ss2026!` example. Do not reuse one password across the nine Phase 03 accounts. Never place
+      a password in scripts, transcripts, screenshots, source control, or command history. Scripts
+      prompt via `Read-Host -AsSecureString`.
+- [ ] **Media downloaded, SHA-256 recorded, and placed in `IsoDir`** (`C:\HyperV\ad-pxe-lab\ISO`).
+      Use the exact configured filenames from `scripts/lab.config.psd1` → `Paths.IsoFiles` for the
+      core media. Stage 1 needs the Windows Server 2025 evaluation ISO
+      (`Windows_Server_2025_Evaluation.iso`); Windows 11, Server 2022, SQL, ConfigMgr, ADK, and WinPE
+      are required later. Inventory SSMS, ODBC Driver 18, and the WS2025 cumulative update separately
+      with their downloaded filenames because they are not fixed in `Paths.IsoFiles`.
 - [ ] **A WS2025 cumulative update at KB5060842 or later** is available for the Phase 02 patch gate.
 - [ ] **Host meets `HostRequirements`:** ≥ 32 GB installed RAM, ≥ 500 GB free lab storage, Hyper-V
       enabled, hardware virtualization on, Secure Boot template `MicrosoftWindows`, and an **elevated
@@ -107,7 +109,7 @@ Set-Location .\scripts
 .\01-New-LabSwitch.ps1                                       # LabSwitch + LabNAT (host vNIC 10.0.100.1/24)
 .\02-New-LabParentDisk.ps1                                   # builds read-only WS2025-parent.vhdx (never booted)
 $adminPassword = Read-Host 'Local Administrator password' -AsSecureString
-.\03-New-LabVM.ps1 -AdminPassword $adminPassword             # creates all six Gen2 VMs; do NOT start them
+.\03-New-LabVM.ps1 -LocalAdministratorPassword $adminPassword # creates all six Gen2 VMs; do NOT start them
 ```
 
 **Verify** (expected: `LabSwitch`, `LabNAT` with prefix `10.0.100.0/24`, six stopped Gen 2 VMs,
@@ -116,9 +118,24 @@ CL01/CL02 network-first boot, parent VHDX read-only):
 ```powershell
 Get-VMSwitch -Name LabSwitch
 Get-NetNat -Name LabNAT
-Get-VM | Select-Object Name, Generation, State
-Get-VMFirmware -VMName CL01 | Select-Object -ExpandProperty BootOrder   # network adapter precedes disk
-(Get-Item (Import-PowerShellDataFile .\lab.config.psd1).Paths.ParentVhdx).IsReadOnly   # -> True
+$config = Import-PowerShellDataFile .\lab.config.psd1
+$labVms = @(Get-VM -Name $config.VMs.Keys -ErrorAction Stop)
+if ($labVms.Count -ne $config.VMs.Count) { throw 'One or more configured lab VMs are missing.' }
+if ($labVms | Where-Object { $_.Generation -ne 2 -or $_.State -ne 'Off' }) {
+  throw 'Every configured lab VM must be Generation 2 and powered off at the Phase 01 boundary.'
+}
+$labVms | Select-Object Name, Generation, State, ProcessorCount, DynamicMemoryEnabled, MemoryStartup
+$labVms | Get-VMNetworkAdapter | Select-Object VMName, SwitchName
+$labVms | Get-VMHardDiskDrive | Select-Object VMName, Path
+$labVms | ForEach-Object {
+  Get-VMFirmware -VMName $_.Name | Select-Object VMName, SecureBoot, SecureBootTemplate, BootOrder
+}
+'CL01','CL02' | ForEach-Object {
+  Get-VMFirmware -VMName $_ | Select-Object -ExpandProperty BootOrder  # network adapter precedes disk
+}
+(Get-VHD -Path (Get-VMHardDiskDrive -VMName DC01).Path) | Select-Object VhdType, ParentPath
+(Get-VHD -Path (Get-VMHardDiskDrive -VMName WDS01).Path) | Select-Object VhdType, ParentPath
+(Get-Item $config.Paths.ParentVhdx).IsReadOnly                         # -> True
 ```
 
 **📸 Evidence:** readiness output (Hyper-V, virtualization, storage, media, parser checks); Virtual
@@ -136,20 +153,22 @@ scope. **Full detail:** [runbooks/02-dc01-adds-dns-dhcp.md](../../runbooks/02-dc
 **Checkpoint first:**
 
 ```powershell
+# Hyper-V host
 Checkpoint-VM -Name DC01 -SnapshotName pre-phase-02
 ```
 
 Start **only DC01** (4 GB). Command spine (GUI paths in the runbook):
 
 ```powershell
-# 1) Static addressing, then rename + reboot
+# 1) Static addressing with temporary external DNS, then rename + reboot
 New-NetIPAddress -InterfaceAlias 'Ethernet' -IPAddress 10.0.100.10 -PrefixLength 24 -DefaultGateway 10.0.100.1
-Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 10.0.100.10
+Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 1.1.1.1, 9.9.9.9
 Rename-Computer -NewName DC01 -Restart
 
-# 2) After reboot: remove the one-time answer file, then PATCH before promotion
+# 2) After reboot: remove the one-time answer file, PATCH, then point DC01 at itself for DNS
 Remove-Item 'C:\Windows\Panther\unattend.xml' -Force            # delete password-bearing answer file
 #   install KB5060842 or later via Windows Update, reboot until current
+Set-DnsClientServerAddress -InterfaceAlias 'Ethernet' -ServerAddresses 10.0.100.10
 
 # 3) Install AD DS + DNS and promote a NEW forest (WS2025 functional level 10)
 Install-WindowsFeature AD-Domain-Services, DNS -IncludeManagementTools
@@ -160,7 +179,7 @@ Install-ADDSForest -DomainName 'hufflab.internal' -DomainNetbiosName 'HUFFLAB' `
 # 4) DNS forwarders, reverse zone, scavenging
 Set-DnsServerForwarder -IPAddress 1.1.1.1, 9.9.9.9
 Add-DnsServerPrimaryZone -NetworkId '10.0.100.0/24' -ReplicationScope Domain
-Set-DnsServerScavenging -ScavengingState $true -ApplyOnAllZones $true
+Set-DnsServerScavenging -ScavengingState $true -ApplyOnAllZones
 
 # 5) DHCP install, authorize, scope — options 003/006/015 ONLY (never 60/66/67)
 Install-WindowsFeature DHCP -IncludeManagementTools
@@ -179,11 +198,23 @@ options 003/006/015 only — **no** 60/66/67):
 Get-ADDomain | Select-Object DNSRoot, NetBIOSName, DomainMode
 Get-ADForest | Select-Object RootDomain, ForestMode
 Resolve-DnsName DC01.hufflab.internal
-Get-DnsServerZone | Where-Object ZoneName -in 'hufflab.internal', '100.0.10.in-addr.arpa'
+Get-DnsServerZone | Where-Object ZoneName -in 'hufflab.internal', '100.0.10.in-addr.arpa' |
+  Select-Object ZoneName, IsDsIntegrated, ReplicationScope
 Get-DnsServerForwarder | Select-Object -ExpandProperty IPAddress
+Get-DnsServerScavenging | Select-Object ScavengingState
+Get-NetIPConfiguration -InterfaceAlias Ethernet
+Get-DnsClientServerAddress -InterfaceAlias Ethernet -AddressFamily IPv4
 Get-DhcpServerInDC
 Get-DhcpServerv4Scope -ScopeId 10.0.100.0 | Select-Object ScopeId, StartRange, EndRange, LeaseDuration, State
-Get-DhcpServerv4OptionValue -ScopeId 10.0.100.0
+$scopeOptions = @(Get-DhcpServerv4OptionValue -ScopeId 10.0.100.0 -All)
+$serverOptions = @(Get-DhcpServerv4OptionValue -All)
+$scopeOptions
+$serverOptions
+$allOptions = $scopeOptions + $serverOptions
+if ($allOptions | Where-Object OptionId -in 60,66,67) { throw 'PXE DHCP option 60, 66, or 67 is configured.' }
+Test-Path 'C:\Windows\Panther\unattend.xml'                            # -> False
+Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 10 HotFixID, InstalledOn
+Get-ComputerInfo | Select-Object WindowsProductName, OsVersion, OsBuildNumber
 ```
 
 **📸 Evidence:** DC01 static IPv4 settings + installed KB5060842 (or later); DHCP authorization,
@@ -192,6 +223,7 @@ active scope range, and scope options 003/006/015.
 **Exit gate:** verify block passes, then checkpoint and keep DC01 **on**:
 
 ```powershell
+# Hyper-V host
 Checkpoint-VM -Name DC01 -SnapshotName pre-phase-03
 ```
 
@@ -205,7 +237,13 @@ Checkpoint-VM -Name DC01 -SnapshotName pre-phase-03
 **Checkpoint first:** confirm `pre-phase-03` exists (created at the end of Phase 02). DC01 is the
 only powered-on VM. Sign in as `HUFFLAB\Administrator` or a delegated equivalent.
 
-Command spine (assign a unique password — not the example — to every account):
+```powershell
+# Hyper-V host
+Get-VMSnapshot -VMName DC01 -Name pre-phase-03
+Get-VM -Name DC01,WDS01,CM01,CL01,CL02,REF01 | Select-Object Name, State
+```
+
+Command spine (enter a different unique lab-only password — never the example — at each prompt):
 
 ```powershell
 # 1) OU tree
@@ -223,15 +261,19 @@ New-ADOrganizationalUnit -Name HUFFLAB -Path $domainDn -ProtectedFromAccidentalD
 redircmp "OU=Workstations,OU=HUFFLAB,DC=hufflab,DC=internal"
 redirusr "OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
 
-# 3) Accounts (9): daily driver, admin, two service accounts, five department users
-$password = Read-Host 'Password for lab user accounts' -AsSecureString
+# 3) Accounts (9): daily driver, separate admin identity, two service accounts, five department users
 $usersRoot = "OU=Users,$root"
-New-ADUser -Name 'Levi Huff' -SamAccountName lhuff -Path $usersRoot -Enabled $true -AccountPassword $password
-New-ADUser -Name 'Levi Huff (Admin)' -SamAccountName adm-lhuff -Path "OU=Admins,$root" -Enabled $true -AccountPassword $password
+function New-LabAdUser {
+  param([string]$Name, [string]$SamAccountName, [string]$Path)
+  $password = Read-Host "Unique password for $SamAccountName" -AsSecureString
+  New-ADUser -Name $Name -SamAccountName $SamAccountName -Path $Path -Enabled $true -AccountPassword $password
+}
+New-LabAdUser -Name 'Levi Huff' -SamAccountName lhuff -Path $usersRoot
+New-LabAdUser -Name 'Levi Huff (Admin)' -SamAccountName adm-lhuff -Path "OU=Admins,$root"
 'svc-sccm-push','svc-sccm-na' | ForEach-Object {
-  New-ADUser -Name $_ -SamAccountName $_ -Path "OU=ServiceAccounts,$root" -Enabled $true -AccountPassword $password }
+  New-LabAdUser -Name $_ -SamAccountName $_ -Path "OU=ServiceAccounts,$root" }
 @{ 'hr.jones'='HR'; 'hr.smith'='HR'; 'fin.brown'='Finance'; 'it.davis'='IT'; 'eng.miller'='Engineering' }.GetEnumerator() | ForEach-Object {
-  New-ADUser -Name $_.Key -SamAccountName $_.Key -Path "OU=$($_.Value),OU=Users,$root" -Enabled $true -AccountPassword $password }
+  New-LabAdUser -Name $_.Key -SamAccountName $_.Key -Path "OU=$($_.Value),OU=Users,$root" }
 
 # 4) Groups: role = Global, access = Domain Local
 'RG-IT-Helpdesk','RG-HR-Staff','RG-Fin-Staff' | ForEach-Object {
@@ -255,9 +297,21 @@ groups + two DomainLocal access groups; `hr.jones`/`hr.smith` in `RG-HR-Staff`, 
 `AG-Share-HR-Modify`; Modify/Change on `\\DC01\HRShare`):
 
 ```powershell
-Get-ADOrganizationalUnit -Filter 'Name -eq "HUFFLAB" -or Name -in ("Admins","ServiceAccounts","Users","Groups","Workstations","Servers")' | Select-Object Name, DistinguishedName
-@('lhuff','adm-lhuff','svc-sccm-push','svc-sccm-na','hr.jones','hr.smith','fin.brown','it.davis','eng.miller') | ForEach-Object { Get-ADUser -Identity $_ } | Select-Object SamAccountName, Enabled
-@('RG-IT-Helpdesk','RG-HR-Staff','RG-Fin-Staff','AG-Share-HR-Modify','AG-WKS-LocalAdmin') | ForEach-Object { Get-ADGroup -Identity $_ } | Select-Object Name, GroupScope
+$domainDn = (Get-ADDomain).DistinguishedName
+@(
+  "OU=HUFFLAB,$domainDn"
+  'Admins','ServiceAccounts','Users','Groups','Workstations','Servers' |
+    ForEach-Object { "OU=$_,OU=HUFFLAB,$domainDn" }
+  'IT','HR','Finance','Engineering' |
+    ForEach-Object { "OU=$_,OU=Users,OU=HUFFLAB,$domainDn" }
+  'Role','Access' |
+    ForEach-Object { "OU=$_,OU=Groups,OU=HUFFLAB,$domainDn" }
+) | ForEach-Object {
+  Get-ADOrganizationalUnit -Identity $_ -Properties ProtectedFromAccidentalDeletion
+} | Select-Object Name, DistinguishedName, ProtectedFromAccidentalDeletion
+Get-ADDomain | Select-Object UsersContainer, ComputersContainer
+@('lhuff','adm-lhuff','svc-sccm-push','svc-sccm-na','hr.jones','hr.smith','fin.brown','it.davis','eng.miller') | ForEach-Object { Get-ADUser -Identity $_ } | Select-Object SamAccountName, Enabled, DistinguishedName
+@('RG-IT-Helpdesk','RG-HR-Staff','RG-Fin-Staff','AG-Share-HR-Modify','AG-WKS-LocalAdmin') | ForEach-Object { Get-ADGroup -Identity $_ } | Select-Object Name, GroupScope, GroupCategory, DistinguishedName
 Get-ADGroupMember RG-HR-Staff | Select-Object SamAccountName
 Get-ADGroupMember AG-Share-HR-Modify | Select-Object Name
 Get-SmbShareAccess -Name HRShare
@@ -270,6 +324,7 @@ icacls C:\HRShare
 **Exit gate:** verify block passes, then checkpoint the Stage 1 boundary:
 
 ```powershell
+# Hyper-V host
 Checkpoint-VM -Name DC01 -SnapshotName pre-phase-04
 ```
 
@@ -291,7 +346,8 @@ Checkpoint-VM -Name DC01 -SnapshotName pre-phase-04
   approved restructure, then re-enable.
 - **Functional level.** Select the GUI-displayed **Windows Server 2025** level (level 10); never
   choose an older level to work around a build difference.
-- **RAM budget.** Never exceed 28 GB of VM allocation. In Stage 1 only DC01 runs — keep the rest off.
+- **RAM budget.** Never exceed 28 GB of concurrently running VM allocation. In Stage 1 only DC01
+  runs — keep the rest off.
 
 ---
 
@@ -324,6 +380,13 @@ Stage 1 is complete when **all** of the following hold:
       DomainLocal groups, and the AGDLP chain resolving to Modify on `\\DC01\HRShare`.
 - [ ] Checkpoint `pre-phase-04` exists.
 - [ ] Every 📸 evidence item (below) is recorded in `docs/lab-notebook.md`.
+
+Final boundary check from the Hyper-V host:
+
+```powershell
+Get-VM -Name DC01,WDS01,CM01,CL01,CL02,REF01 | Select-Object Name, Generation, State
+Get-VMSnapshot -VMName DC01 -Name pre-phase-04
+```
 
 ---
 
