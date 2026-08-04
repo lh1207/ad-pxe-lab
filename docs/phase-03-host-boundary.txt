@@ -1,0 +1,22 @@
+﻿CheckedAt=2026-08-03T23:18:11.7029881-04:00
+Verification=Passed
+VMs:
+
+Name  Generation   State AutomaticCheckpointsEnabled
+----  ----------   ----- ---------------------------
+CL02           2     Off                       False
+REF01          2     Off                       False
+CM01           2     Off                       False
+DC01           2 Running                       False
+WDS01          2     Off                       False
+CL01           2     Off                       False
+
+
+
+Checkpoints:
+
+VMName Name         CreationTime         CheckpointType
+------ ----         ------------         --------------
+DC01   pre-phase-03 7/22/2026 2:40:15 AM       Standard
+DC01   pre-phase-04 8/3/2026 11:16:27 PM       Standard
+

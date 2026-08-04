@@ -1,0 +1,365 @@
+﻿StartedAt=2026-08-03T23:16:18.1915576-04:00
+PasswordUniqueness=Passed (nine distinct fingerprints; values not retained)
+
+
+ComputerName   : DC01
+Domain         : HUFFLAB
+Time           : 08/03/2026 23:16:18 -04:00
+PSComputerName : DC01
+RunspaceId     : 3c864aef-920b-438e-b0a2-ff9c4d02b466
+
+
+
+
+Phase 03 configuration and verification JSON:
+{
+    "OUCount":  13,
+    "OUs":  [
+                {
+                    "Name":  "HUFFLAB",
+                    "DistinguishedName":  "OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Admins",
+                    "DistinguishedName":  "OU=Admins,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "ServiceAccounts",
+                    "DistinguishedName":  "OU=ServiceAccounts,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Users",
+                    "DistinguishedName":  "OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Groups",
+                    "DistinguishedName":  "OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Workstations",
+                    "DistinguishedName":  "OU=Workstations,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Servers",
+                    "DistinguishedName":  "OU=Servers,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "IT",
+                    "DistinguishedName":  "OU=IT,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "HR",
+                    "DistinguishedName":  "OU=HR,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Finance",
+                    "DistinguishedName":  "OU=Finance,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Engineering",
+                    "DistinguishedName":  "OU=Engineering,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Role",
+                    "DistinguishedName":  "OU=Role,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                },
+                {
+                    "Name":  "Access",
+                    "DistinguishedName":  "OU=Access,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal",
+                    "ProtectedFromAccidentalDeletion":  true
+                }
+            ],
+    "UsersContainer":  "OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal",
+    "ComputersContainer":  "OU=Workstations,OU=HUFFLAB,DC=hufflab,DC=internal",
+    "UserCount":  9,
+    "Users":  [
+                  {
+                      "SamAccountName":  "lhuff",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=Levi Huff,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "adm-lhuff",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=Levi Huff (Admin),OU=Admins,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "svc-sccm-push",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=svc-sccm-push,OU=ServiceAccounts,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "svc-sccm-na",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=svc-sccm-na,OU=ServiceAccounts,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "hr.jones",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=hr.jones,OU=HR,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "hr.smith",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=hr.smith,OU=HR,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "fin.brown",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=fin.brown,OU=Finance,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "it.davis",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=it.davis,OU=IT,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  },
+                  {
+                      "SamAccountName":  "eng.miller",
+                      "Enabled":  true,
+                      "DistinguishedName":  "CN=eng.miller,OU=Engineering,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal"
+                  }
+              ],
+    "GroupCount":  5,
+    "Groups":  [
+                   {
+                       "Name":  "RG-IT-Helpdesk",
+                       "GroupScope":  {
+                                          "value":  1,
+                                          "Value":  "Global"
+                                      },
+                       "GroupCategory":  {
+                                             "value":  1,
+                                             "Value":  "Security"
+                                         },
+                       "DistinguishedName":  "CN=RG-IT-Helpdesk,OU=Role,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal"
+                   },
+                   {
+                       "Name":  "RG-HR-Staff",
+                       "GroupScope":  {
+                                          "value":  1,
+                                          "Value":  "Global"
+                                      },
+                       "GroupCategory":  {
+                                             "value":  1,
+                                             "Value":  "Security"
+                                         },
+                       "DistinguishedName":  "CN=RG-HR-Staff,OU=Role,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal"
+                   },
+                   {
+                       "Name":  "RG-Fin-Staff",
+                       "GroupScope":  {
+                                          "value":  1,
+                                          "Value":  "Global"
+                                      },
+                       "GroupCategory":  {
+                                             "value":  1,
+                                             "Value":  "Security"
+                                         },
+                       "DistinguishedName":  "CN=RG-Fin-Staff,OU=Role,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal"
+                   },
+                   {
+                       "Name":  "AG-Share-HR-Modify",
+                       "GroupScope":  {
+                                          "value":  0,
+                                          "Value":  "DomainLocal"
+                                      },
+                       "GroupCategory":  {
+                                             "value":  1,
+                                             "Value":  "Security"
+                                         },
+                       "DistinguishedName":  "CN=AG-Share-HR-Modify,OU=Access,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal"
+                   },
+                   {
+                       "Name":  "AG-WKS-LocalAdmin",
+                       "GroupScope":  {
+                                          "value":  0,
+                                          "Value":  "DomainLocal"
+                                      },
+                       "GroupCategory":  {
+                                             "value":  1,
+                                             "Value":  "Security"
+                                         },
+                       "DistinguishedName":  "CN=AG-WKS-LocalAdmin,OU=Access,OU=Groups,OU=HUFFLAB,DC=hufflab,DC=internal"
+                   }
+               ],
+    "RGHRStaffMembers":  [
+                             "hr.jones",
+                             "hr.smith"
+                         ],
+    "AGShareHRModifyMembers":  [
+                                   "RG-HR-Staff"
+                               ],
+    "Share":  {
+                  "Name":  "HRShare",
+                  "Path":  "C:\\HRShare"
+              },
+    "ShareAccess":  [
+                        {
+                            "AccountName":  "HUFFLAB\\AG-Share-HR-Modify",
+                            "AccessControlType":  {
+                                                      "value":  0,
+                                                      "Value":  "Allow"
+                                                  },
+                            "AccessRight":  {
+                                                "value":  1,
+                                                "Value":  "Change"
+                                            }
+                        }
+                    ],
+    "NtfsAccess":  [
+                       {
+                           "Identity":  "BUILTIN\\Administrators",
+                           "FileSystemRights":  {
+                                                    "value":  2032127,
+                                                    "Value":  "FullControl"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  false
+                       },
+                       {
+                           "Identity":  "HUFFLAB\\AG-Share-HR-Modify",
+                           "FileSystemRights":  {
+                                                    "value":  1245631,
+                                                    "Value":  "Modify, Synchronize"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  false
+                       },
+                       {
+                           "Identity":  "NT AUTHORITY\\SYSTEM",
+                           "FileSystemRights":  {
+                                                    "value":  2032127,
+                                                    "Value":  "FullControl"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       },
+                       {
+                           "Identity":  "BUILTIN\\Administrators",
+                           "FileSystemRights":  {
+                                                    "value":  2032127,
+                                                    "Value":  "FullControl"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       },
+                       {
+                           "Identity":  "BUILTIN\\Users",
+                           "FileSystemRights":  {
+                                                    "value":  1179817,
+                                                    "Value":  "ReadAndExecute, Synchronize"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       },
+                       {
+                           "Identity":  "BUILTIN\\Users",
+                           "FileSystemRights":  {
+                                                    "value":  4,
+                                                    "Value":  "AppendData"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       },
+                       {
+                           "Identity":  "BUILTIN\\Users",
+                           "FileSystemRights":  {
+                                                    "value":  2,
+                                                    "Value":  "CreateFiles"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       },
+                       {
+                           "Identity":  "CREATOR OWNER",
+                           "FileSystemRights":  {
+                                                    "value":  268435456,
+                                                    "Value":  "268435456"
+                                                },
+                           "AccessControlType":  {
+                                                     "value":  0,
+                                                     "Value":  "Allow"
+                                                 },
+                           "IsInherited":  true
+                       }
+                   ],
+    "DirectUserAclCount":  0,
+    "Verification":  "Passed",
+    "PSComputerName":  "DC01",
+    "RunspaceId":  "fe738b94-74ef-48bf-87d2-96784d33a127",
+    "PSShowComputerName":  true
+}
+Final VM boundary JSON:
+[
+    {
+        "Name":  "CL02",
+        "Generation":  2,
+        "State":  3,
+        "AutomaticCheckpointsEnabled":  false
+    },
+    {
+        "Name":  "REF01",
+        "Generation":  2,
+        "State":  3,
+        "AutomaticCheckpointsEnabled":  false
+    },
+    {
+        "Name":  "CM01",
+        "Generation":  2,
+        "State":  3,
+        "AutomaticCheckpointsEnabled":  false
+    },
+    {
+        "Name":  "DC01",
+        "Generation":  2,
+        "State":  2,
+        "AutomaticCheckpointsEnabled":  false
+    },
+    {
+        "Name":  "WDS01",
+        "Generation":  2,
+        "State":  3,
+        "AutomaticCheckpointsEnabled":  false
+    },
+    {
+        "Name":  "CL01",
+        "Generation":  2,
+        "State":  3,
+        "AutomaticCheckpointsEnabled":  false
+    }
+]
+CheckpointVerified=pre-phase-04
+CompletedAt=2026-08-03T23:16:28.7569259-04:00

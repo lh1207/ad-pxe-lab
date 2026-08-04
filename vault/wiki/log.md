@@ -1,12 +1,32 @@
 ---
 type: meta
 title: "Log"
-updated: 2026-07-21T23:38:16-04:00
+updated: 2026-08-03T23:50:00-04:00
 ---
 
 # Log
 
 Append-only chronological record of vault operations. New entries go at the TOP. Never edit past entries.
+
+---
+
+## 2026-08-03 — publish | Stage 1 handoff opened as draft PR #4
+
+- Type: publication handoff
+- Location: wiki/meta/phase-1-handoff-ad-foundation.md
+- From: branch codex/stage-1-ad-foundation-handoff, initial commit 6246ccd
+- Outcome: the completed notebook, Phase 03 evidence, vault record, and local-wrapper ignore rule
+  are pushed to [draft PR #4](https://github.com/lh1207/ad-pxe-lab/pull/4) targeting main
+
+---
+
+## 2026-08-03 — save | Stage 1 AD foundation completed on WOLF
+
+- Type: decision update and execution completion
+- Location: wiki/meta/phase-1-handoff-ad-foundation.md
+- From: live Windows/Hyper-V execution and independent evidence verification
+- Outcome: runbooks 01–03 completed; DC01 AD DS/DNS/DHCP and the Phase 03 AD/AGDLP structure
+  passed verification, pre-phase-04 exists, and Phase 04 is unblocked
 
 ---
 
