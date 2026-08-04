@@ -2,7 +2,7 @@
 type: decision
 title: "Phase 1 Handoff — AD Foundation"
 created: 2026-07-15
-updated: 2026-08-03T23:20:00-04:00
+updated: 2026-08-03T23:50:00-04:00
 tags:
   - meta
   - handoff
@@ -107,3 +107,10 @@ Canonical evidence is recorded in docs/lab-notebook.md, docs/phase-02-configurat
 - DHCP lease duration is option 51 and must be configured separately from the allowed 003/006/015 scope options; options 60/66/67 remain absent.
 - AD convergence must tolerate partially created objects and disabled accounts after interrupted runs.
 - A single operator-entered base passphrase can safely produce distinct deterministic per-user passwords when derivation is one-way and no generated value is logged or persisted.
+
+## Publication handoff
+
+The completed Stage 1 record is published from branch codex/stage-1-ad-foundation-handoff in
+[draft PR #4](https://github.com/lh1207/ad-pxe-lab/pull/4), targeting main. The initial
+execution-evidence commit is 6246ccd. The pull request includes the notebook, Phase 03 evidence,
+vault updates, and the .codex/ ignore rule; local execution wrappers remain untracked.

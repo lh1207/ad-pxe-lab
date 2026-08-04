@@ -1,7 +1,7 @@
 ---
 type: meta
 title: "Index"
-updated: 2026-08-03T23:20:00-04:00
+updated: 2026-08-03T23:50:00-04:00
 ---
 
 # Index
@@ -42,6 +42,7 @@ See [[Meta Index]] for conventions and lint reports.
 - [[Phase 1 Handoff — AD Foundation]] — audited execution handoff for runbooks 01–03, with the
   synchronized runbook corrections and evidence notebook (`docs/handoffs/phase-01-handoff.md`)
   Live execution is complete through runbook 03; the standard pre-phase-04 checkpoint is ready.
+  Publication is tracked in [draft PR #4](https://github.com/lh1207/ad-pxe-lab/pull/4).
 
 ## Sources ingested
 

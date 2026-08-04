@@ -1,7 +1,7 @@
 ---
 type: meta
 title: "Hot Cache"
-updated: 2026-08-03T23:20:00-04:00
+updated: 2026-08-03T23:50:00-04:00
 ---
 
 # Recent Context
@@ -17,10 +17,11 @@ updated: 2026-08-03T23:20:00-04:00
 - Final boundary: DC01 running, the other five VMs off, automatic checkpoints disabled, and standard checkpoints pre-phase-03 and pre-phase-04 present.
 - Evidence lives in docs/lab-notebook.md, docs/phase-02-configuration-verification.txt, docs/phase-03-configuration-verification.txt, and docs/phase-03-host-boundary.txt.
 - One base passphrase was used to derive distinct per-user passwords; generated values were never logged or persisted.
+- Branch codex/stage-1-ad-foundation-handoff is pushed and tracked by draft PR #4 against main.
 
 ## Open Follow-ups
 - Begin Phase 04 from the verified pre-phase-04 boundary.
-- Review and intentionally commit/push the local notebook, evidence, vault, and .gitignore changes when desired.
+- Review and merge https://github.com/lh1207/ad-pxe-lab/pull/4 when ready.
 
 ## Active Threads
 - Stage 1 handoff is complete. Phase 04 is the next operational stage.
