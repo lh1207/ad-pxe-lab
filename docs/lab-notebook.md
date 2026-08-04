@@ -16,8 +16,8 @@ publish; the filename can still be recorded here.
 | Build started | 2026-07-21 |
 | Hyper-V host | WOLF |
 | Operator | _name or initials_ |
-| Current phase | 02 — DC01 AD DS, DNS, and DHCP |
-| Last verified checkpoint | Phase 01 boundary verified; host restore point `AD PXE Lab pre-Phase-01` |
+| Current phase | Stage 1 complete — Phase 03 AD structure and AGDLP verified |
+| Last verified checkpoint | `pre-phase-04` on DC01 (2026-08-03) |
 
 ## Media integrity record
 
@@ -36,7 +36,7 @@ retain the official source URL separately as provenance.
 | Windows PE add-on | `adkwinpesetup.exe` | Add-on for ADK 10.1.26100.2454 | [Microsoft Learn](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) | 2026-07-22 | `ADF53CA21CAE36821E0A8F3C31546752B9CE066944DE1D4F1673E491831255E2` | Valid Microsoft Authenticode signature |
 | SQL Server Management Studio | _exact filename_ | _pending_ | _pending_ | _YYYY-MM-DD_ | _64 hex characters_ | _pending_ |
 | Microsoft ODBC Driver 18 | _exact filename_ | _pending_ | _pending_ | _YYYY-MM-DD_ | _64 hex characters_ | _pending_ |
-| WS2025 cumulative update | _exact filename or Windows Update_ | _KB and build_ | _pending_ | _YYYY-MM-DD_ | _64 hex characters or N/A_ | _pending_ |
+| WS2025 cumulative update | Windows Update | KB5101372; OS build 26100.33158 | Microsoft Windows Update | 2026-07-22 | N/A | Installed and verified before/with Phase 02 completion |
 
 ## Phase status and checkpoints
 
@@ -46,8 +46,8 @@ directory backup for Phase 01 because no VM checkpoint exists before the lab VMs
 | Phase | Started | Verify passed | Boundary checkpoint / backup | Evidence complete | Notes |
 |---:|---|---|---|---|---|
 | 01 | 2026-07-21 | 2026-07-22 | Host restore point `AD PXE Lab pre-Phase-01` | 2026-07-22 | Verified isolated switch/NAT, read-only parent, and six stopped Generation 2 VMs on approved `G:\HyperV\ad-pxe-lab` storage. |
-| 02 | 2026-07-22 | _pending_ | `pre-phase-03` | _pending_ | Phase 01 exit gate passed; DC01 ready for first boot. |
-| 03 | _pending_ | _pending_ | `pre-phase-04` | _pending_ | |
+| 02 | 2026-07-22 | 2026-07-22 | `pre-phase-03` | 2026-07-22 | Windows Server 2025 forest, AD-integrated DNS, DNS forwarders/scavenging, static network, and authorized DHCP scope verified. |
+| 03 | 2026-07-22 | 2026-08-03 | `pre-phase-04` | 2026-08-03 | OU/account/group structure and AGDLP share passed the runbook verification; only DC01 remains running. |
 | 04 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 05 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 06 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
@@ -66,10 +66,10 @@ corresponding command and console checks pass.
 |---:|---|---:|---|---|---|
 | 1 | 2026-07-22 | 01 | Elevated readiness passed: Hyper-V enabled, 63 GB RAM, 693 GB free on `G:`, active hypervisor, all seven configured media items, and all script parser checks | `docs/phase-01-readiness.txt` | Corrected the virtualization gate to accept an active Hyper-V hypervisor when firmware reporting is masked. |
 | 2 | 2026-07-22 | 01 | Created and verified internal `LabSwitch`, host vNIC `10.0.100.1/24`, and `LabNAT` prefix `10.0.100.0/24` | `docs/phase-01-network.txt` | None. |
-| 3 | _pending_ | 02 | DC01 static IPv4; installed KB5060842 or later (record KB and build) | _pending_ | |
-| 4 | _pending_ | 02 | DHCP authorization, active `.100`–`.199` scope, options 003/006/015 only | _pending_ | |
-| 5 | _pending_ | 03 | ADUC expanded through the complete `HUFFLAB` OU tree | _pending_ | |
-| 6 | _pending_ | 03 | AGDLP membership chain and `HRShare` share/NTFS permissions | _pending_ | |
+| 3 | 2026-07-22 | 02 | DC01 verified at `10.0.100.10/24`, gateway `10.0.100.1`, self-DNS `10.0.100.10`, build 26100.33158 with KB5101372 installed | `docs/phase-02-configuration-verification.txt` | The post-promotion reboot initially failed because the local credential was invalid after promotion; host-side restart completed AD DS initialization. |
+| 4 | 2026-07-22 | 02 | DC01 authorized for DHCP; active `10.0.100.100`–`10.0.100.199` scope with 8-hour lease, options 003/006/015 and implicit lease option 051; no 060/066/067 | `docs/phase-02-configuration-verification.txt` | Windows Server exposes option 051 for the configured lease duration; the PXE-prohibited options are absent. |
+| 5 | 2026-08-03 | 03 | PowerShell Direct enumerated the complete 13-OU `HUFFLAB` tree with every OU protected from accidental deletion; Users/Computers containers redirected correctly | `docs/phase-03-configuration-verification.txt` | Text enumeration is the authoritative equivalent of the requested expanded ADUC tree screenshot. |
+| 6 | 2026-08-03 | 03 | Verified `hr.jones`/`hr.smith` → `RG-HR-Staff` → `AG-Share-HR-Modify`; SMB Change and NTFS Modify on `C:\HRShare`, with no direct user ACLs | `docs/phase-03-configuration-verification.txt` | One-base deterministic derivation produced nine distinct complex lab passwords without storing or logging values. |
 
 ## Additional evidence log
 
@@ -82,6 +82,9 @@ and its successful rerun remain distinguishable.
 | 2026-07-22 | 01 | Elevated `00-Test-HostReadiness.ps1` final gate | Every host, media, and parser check passes | All checks passed with 693 GB free before VM storage creation | `docs/phase-01-readiness.txt` | None. |
 | 2026-07-22 | 01 | Elevated `02-New-LabParentDisk.ps1` | Detached, read-only 60 GB dynamic WS2025 parent VHDX | Created `G:\HyperV\ad-pxe-lab\VHD\WS2025-parent.vhdx`; 15,103,688,704-byte file; detached and read-only | `docs/phase-01-parent-disk.txt` | Corrected the configured image name to the ISO's exact `Windows Server 2025 Standard Evaluation (Desktop Experience)` label after a safe pre-creation stop. |
 | 2026-07-22 | 01 | Elevated `03-New-LabVM.ps1` and boundary verification | Six stopped Generation 2 VMs, correct RAM/CPU, switch, disks, firmware, and boot order | All six passed; CL01/CL02 network-first; DC01/WDS01 differencing parents correct; parent remained read-only | `docs/phase-01-vms.txt` | None. |
+| 2026-07-22 | 02 | PowerShell Direct Phase 02 configuration and verification | Windows2025 forest/domain, forward/reverse AD-integrated DNS, authorized DHCP, static network, current update, and `pre-phase-03` | All Phase 02 checks passed; DC01 build 26100.33158, DHCP active, automatic checkpoints disabled | `docs/phase-02-configuration-verification.txt` | DNS client and missing default route were corrected before the successful gate. |
+| 2026-08-03 | 03 | Idempotent PowerShell Direct Phase 03 convergence and verification | 13 protected OUs, nine enabled users, five scoped security groups, AGDLP share permissions | All checks passed and `pre-phase-04` was created | `docs/phase-03-configuration-verification.txt` | An earlier rejected password left `lhuff` disabled; the final convergence reset only that derived password and enabled the account. |
+| 2026-08-03 | 03 | Independent elevated Hyper-V host boundary audit | Six Generation 2 VMs; only DC01 running; automatic checkpoints disabled; `pre-phase-03` and `pre-phase-04` present | Verification passed exactly | `docs/phase-03-host-boundary.txt` | None. |
 
 ## Rollback and variance log
 

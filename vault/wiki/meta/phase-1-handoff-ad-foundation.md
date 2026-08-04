@@ -2,7 +2,7 @@
 type: decision
 title: "Phase 1 Handoff — AD Foundation"
 created: 2026-07-15
-updated: 2026-07-15T22:07:27-04:00
+updated: 2026-08-03T23:20:00-04:00
 tags:
   - meta
   - handoff
@@ -91,6 +91,19 @@ The static audit corrects several blockers and closes the documentation gaps:
 
 Microsoft's Windows Server 2025 documentation confirms the `Win2025` forest mode, the Active
 Directory filter grammar excludes `-in`, and `Set-DnsServerScavenging -ApplyOnAllZones` is a switch.
-The repository's local-link check and whitespace/error check pass. PowerShell/Hyper-V commands cannot
-be executed in the current macOS workspace, so real Stage 1 infrastructure and notebook evidence
-remain an operator task on the Windows host.
+The repository's local-link and whitespace/error checks pass. Live Windows/Hyper-V execution was
+completed on WOLF, and the verified outcome is recorded below and in the canonical evidence files.
+
+## Live execution outcome — Stage 1 complete
+
+Stage 1 was executed and independently verified on WOLF. Runbooks 01–03 are complete: the isolated Hyper-V fabric and six Gen 2 VMs exist, DC01 provides the hufflab.internal AD DS/DNS/DHCP foundation, and the Phase 03 OU/account/group/AGDLP structure is live. The standard pre-phase-04 checkpoint exists and Phase 04 is unblocked.
+
+Canonical evidence is recorded in docs/lab-notebook.md, docs/phase-02-configuration-verification.txt, docs/phase-03-configuration-verification.txt, and docs/phase-03-host-boundary.txt. At the final boundary DC01 is running, the other five VMs are off, automatic checkpoints are disabled, and both pre-phase-03 and pre-phase-04 checkpoints are present.
+
+## Reusable execution lessons
+
+- The Windows Server 2025 parent disk requires the ESP partition to have the correct GPT system-partition type before first boot.
+- After DC promotion and reboot, the old local administrator identity is no longer valid; automation must reconnect with the domain credential.
+- DHCP lease duration is option 51 and must be configured separately from the allowed 003/006/015 scope options; options 60/66/67 remain absent.
+- AD convergence must tolerate partially created objects and disabled accounts after interrupted runs.
+- A single operator-entered base passphrase can safely produce distinct deterministic per-user passwords when derivation is one-way and no generated value is logged or persisted.

@@ -1,12 +1,22 @@
 ---
 type: meta
 title: "Log"
-updated: 2026-07-21T23:38:16-04:00
+updated: 2026-08-03T23:20:00-04:00
 ---
 
 # Log
 
 Append-only chronological record of vault operations. New entries go at the TOP. Never edit past entries.
+
+---
+
+## 2026-08-03 — save | Stage 1 AD foundation completed on WOLF
+
+- Type: decision update and execution completion
+- Location: wiki/meta/phase-1-handoff-ad-foundation.md
+- From: live Windows/Hyper-V execution and independent evidence verification
+- Outcome: runbooks 01–03 completed; DC01 AD DS/DNS/DHCP and the Phase 03 AD/AGDLP structure
+  passed verification, pre-phase-04 exists, and Phase 04 is unblocked
 
 ---
 
