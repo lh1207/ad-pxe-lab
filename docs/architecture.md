@@ -1,6 +1,6 @@
 # Lab architecture
 
-This lab demonstrates an AD DS administration workflow, a standalone WDS imaging workflow,
+This lab demonstrates an AD DS administration workflow, a standalone WDS PXE transport workflow,
 and a Configuration Manager operations workflow without combining conflicting PXE services.
 It runs on a Hyper-V Internal switch and uses the host only for NAT; the lab remains isolated
 from the physical LAN.
@@ -83,8 +83,8 @@ sequenceDiagram
     Note over CL,WDS: Phases 04–06 and 09: WDS01 is the sole PXE responder
     CL->>DC: DHCPDISCOVER / PXE broadcast
     DC-->>CL: Lease, gateway 10.0.100.1, DNS 10.0.100.10
-    WDS-->>CL: PXE offer and Server 2022 WinPE boot image
-    CL->>WDS: Select install or capture workflow
+    WDS-->>CL: PXE offer and custom ADK WinPE boot image
+    CL->>WDS: Boot WinPE, launch Windows Setup from read-only share
   end
 
   rect rgb(255, 241, 230)
@@ -98,9 +98,8 @@ sequenceDiagram
   end
 ```
 
-The standalone WDS phase uses a Server 2022 `boot.wim` for its WinPE experience and Windows
-11 Enterprise evaluation media for its install image. Its capture output is
-`HUFFLAB-Win11-Golden.wim`; ConfigMgr later applies that exact WIM through the OSD task
-sequence. The ConfigMgr phase uses ADK 11 24H2 with its WinPE add-on. See [Windows deployment scenarios and tools](https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools)
-for the deployment-tool roles and [PXE boot in Configuration Manager](https://learn.microsoft.com/en-us/troubleshoot/mem/configmgr/os-deployment/understand-pxe-boot)
-for the PXE flow.
+The standalone WDS phase uses a custom ADK 11 24H2 WinPE image as its PXE boot payload. WinPE
+launches Windows Setup interactively from a read-only network share containing the Windows 11
+Enterprise evaluation media; no standalone WDS install-image workflow is used. Its capture output
+is `HUFFLAB-Win11-Golden.wim`; ConfigMgr later applies that exact WIM through the OSD task
+sequence. See Microsoft's [WDS documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-deployment-services/get-started-with-wds) and [Windows deployment scenarios and tools](https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools).

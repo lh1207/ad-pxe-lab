@@ -1,0 +1,85 @@
+**********************
+PowerShell transcript start
+Start time: 20260811211549
+Username: WOLF\sparrow
+RunAs User: WOLF\sparrow
+Configuration Name:
+Machine: WOLF (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Program Files\PowerShell\7\pwsh.dll -WorkingDirectory ~
+Process ID: 23912
+PSVersion: 7.6.3
+PSEdition: Core
+GitCommitId: 7.6.3
+OS: Microsoft Windows 10.0.26100
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+Transcript started, output file is C:\HyperV\ad-pxe-lab\docs\phase-04-configuration-verification.txt
+=== WDS01 ===
+
+FeatureState           : Installed
+ServiceState           : Running
+BootImageNames         : HUFFLAB Custom WinPE (Windows 11 Setup)
+CustomBootImageEnabled : True
+InstallImageCount      : 0
+SetupShare             : Win11Source
+SetupSharePath         : D:\Win11Source
+SetupExists            : True
+ShareAccess            : HUFFLAB\Domain Users:Allow:Read; HUFFLAB\Domain Admins:Allow:Read
+PSComputerName         : WDS01
+RunspaceId             : a85d2c0e-ecb8-415c-858c-73b3615d55cd
+
+=== DC01 ===
+
+DhcpOptions         : 3:Router; 6:DNS Servers; 15:DNS Domain Name; 51:Lease
+ForbiddenPxeOptions :
+DistinguishedName   : CN=CL02,OU=Workstations,OU=HUFFLAB,DC=hufflab,DC=internal
+PSComputerName      : DC01
+RunspaceId          : 4d1d875c-9088-4b71-b69c-1dd3ac3bf217
+
+=== CL02 ===
+
+Name           : CL02
+Domain         : hufflab.internal
+PartOfDomain   : True
+Windows        : Microsoft Windows 11 Enterprise Evaluation
+SecureChannel  : True
+IPv4Dns        : 10.0.100.10
+PSComputerName : CL02
+RunspaceId     : f5310fd2-d272-483d-9090-83ce4de36b57
+
+=== HYPER-V ===
+
+TpmEnabled         : True
+SecureBoot         : On
+SecureBootTemplate : MicrosoftWindows
+DiskPath           : G:\HyperV\ad-pxe-lab\VHD\CL02_49EF91F2-BC05-462A-8287-0C3F2A5039DD.avhdx
+DiskSizeGB         : 80
+
+=== PRE-PHASE-05 CHECKPOINTS ===
+
+VMName Name         CheckpointType CreationTime
+------ ----         -------------- ------------
+DC01   pre-phase-05       Standard 8/11/2026 9:16:12 PM
+WDS01  pre-phase-05       Standard 8/11/2026 9:16:16 PM
+CL02   pre-phase-05       Standard 8/11/2026 9:16:22 PM
+
+=== VM BOUNDARY ===
+
+Name    State AutomaticCheckpointsEnabled CheckpointType
+----    ----- --------------------------- --------------
+CL01      Off                       False       Standard
+CL02  Running                       False       Standard
+CM01      Off                       False       Standard
+DC01  Running                       False       Standard
+REF01     Off                       False       Standard
+WDS01 Running                       False       Standard
+
+PHASE 04 FINAL GATE: PASS
+**********************
+PowerShell transcript end
+End time: 20260811211623
+**********************

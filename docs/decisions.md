@@ -48,20 +48,21 @@ possible only through a planned domain-rename workflow; a rebuild is usually che
 ConfigMgr deployment. See the [IANA registry](https://www.iana.org/assignments/special-use-domain-names/special-use-domain-names.xhtml)
 and [Active Directory domain rename guidance](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-forest-root-domain-rename).
 
-## ADR-004 — Server 2022 boot image for standalone WDS
+## ADR-004 — Custom ADK WinPE payload for standalone WDS PXE
 
 **Status:** Accepted
 
-**Decision:** Use Server 2022 `boot.wim` for WDS boot and capture images; use Windows 11
-Enterprise Evaluation `install.wim` for installation images.
+**Decision:** Use a custom ADK 11 24H2 WinPE image as the WDS PXE boot payload. Launch Windows
+Setup interactively from a read-only network share containing Windows 11 Enterprise Evaluation
+media; do not import an operating-system install image into standalone WDS.
 
-**Rationale:** The standalone WDS portion needs a workable WinPE path while retaining an honest
-learning arc toward ConfigMgr OSD. The server's WDS PXE and TFTP functions provide the network
-boot path, while the client experience runs in WinPE.
+**Rationale:** Standalone WDS remains useful as an observable PXE/TFTP transport while avoiding
+the unsupported assumption that it can deploy current Windows client media as a WDS install
+image. The client experience runs in WinPE and invokes Windows Setup from the read-only share.
 
-**Consequences:** Do not import Win11/WS2025 media `boot.wim` into the standalone WDS workflow;
-use the Server 2022 source explicitly. This is a constrained lab workaround, not a claim that
-WDS is a modern end-state. See [WDS API overview](https://learn.microsoft.com/en-us/windows/win32/wds/about-the-windows-deployment-services-api)
+**Consequences:** Maintain the custom ADK WinPE payload and read-only Windows setup share as
+Phase 04 inputs. There is no standalone WDS install-image workflow. This is a constrained lab
+transport, not a claim that WDS is a modern end-state. See Microsoft's [WDS documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-deployment-services/get-started-with-wds)
 and [Windows deployment scenarios and tools](https://learn.microsoft.com/en-us/windows/deployment/windows-deployment-scenarios-and-tools).
 
 ## ADR-005 — Full SQL Server 2022 on CM01

@@ -16,8 +16,8 @@ publish; the filename can still be recorded here.
 | Build started | 2026-07-21 |
 | Hyper-V host | WOLF |
 | Operator | _name or initials_ |
-| Current phase | Stage 1 complete — Phase 03 AD structure and AGDLP verified |
-| Last verified checkpoint | `pre-phase-04` on DC01 (2026-08-03) |
+| Current phase | Phase 04 complete — WDS PXE transport and CL02 deployment verified |
+| Last verified checkpoint | `pre-phase-05` on DC01, WDS01, and CL02 (2026-08-11) |
 
 ## Media integrity record
 
@@ -48,7 +48,7 @@ directory backup for Phase 01 because no VM checkpoint exists before the lab VMs
 | 01 | 2026-07-21 | 2026-07-22 | Host restore point `AD PXE Lab pre-Phase-01` | 2026-07-22 | Verified isolated switch/NAT, read-only parent, and six stopped Generation 2 VMs on approved `G:\HyperV\ad-pxe-lab` storage. |
 | 02 | 2026-07-22 | 2026-07-22 | `pre-phase-03` | 2026-07-22 | Windows Server 2025 forest, AD-integrated DNS, DNS forwarders/scavenging, static network, and authorized DHCP scope verified. |
 | 03 | 2026-07-22 | 2026-08-03 | `pre-phase-04` | 2026-08-03 | OU/account/group structure and AGDLP share passed the runbook verification; only DC01 remains running. |
-| 04 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
+| 04 | 2026-08-10 | 2026-08-11 | `pre-phase-05` on DC01, WDS01, and CL02 | 2026-08-11 | WDS01 delivered custom ADK WinPE by PXE; WinPE launched Windows 11 Enterprise Evaluation Setup from read-only `Win11Source`; CL02 joined the domain, landed in Workstations, and passed secure-channel and `lhuff` sign-in checks. |
 | 05 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 06 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 07 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
@@ -85,6 +85,11 @@ and its successful rerun remain distinguishable.
 | 2026-07-22 | 02 | PowerShell Direct Phase 02 configuration and verification | Windows2025 forest/domain, forward/reverse AD-integrated DNS, authorized DHCP, static network, current update, and `pre-phase-03` | All Phase 02 checks passed; DC01 build 26100.33158, DHCP active, automatic checkpoints disabled | `docs/phase-02-configuration-verification.txt` | DNS client and missing default route were corrected before the successful gate. |
 | 2026-08-03 | 03 | Idempotent PowerShell Direct Phase 03 convergence and verification | 13 protected OUs, nine enabled users, five scoped security groups, AGDLP share permissions | All checks passed and `pre-phase-04` was created | `docs/phase-03-configuration-verification.txt` | An earlier rejected password left `lhuff` disabled; the final convergence reset only that derived password and enabled the account. |
 | 2026-08-03 | 03 | Independent elevated Hyper-V host boundary audit | Six Generation 2 VMs; only DC01 running; automatic checkpoints disabled; `pre-phase-03` and `pre-phase-04` present | Verification passed exactly | `docs/phase-03-host-boundary.txt` | None. |
+| 2026-08-10 | 04 | WDS PXE boot from CL02 | WDS01 offers the custom x64 WinPE image and transfers `Boot\x64\Images\boot.wim` | CL02 received the WDS prompt and completed the WIM download from `10.0.100.20` | `docs/evidence/phase-04/cl02-wds-pxe-boot-wim-download.png` | Repaired the x64 UEFI boot-program/N12 split and disabled the incompatible TFTP variable-window path. |
+| 2026-08-10 | 04 | Custom WinPE → read-only `Win11Source` → Windows Setup | Windows 11 Enterprise Evaluation Setup launches without a WDS install image | Setup launched from `\\10.0.100.20\Win11Source`; installation completed after vTPM, Secure Boot, and disk remediation | `docs/evidence/phase-04/cl02-custom-winpe-windows-setup.png`; `docs/evidence/phase-04/cl02-windows-11-installing.png` | Current Microsoft guidance blocks the legacy standalone-WDS install-image premise; Phase 04 uses WDS only for PXE/TFTP. |
+| 2026-08-10 | 04 | CL02 domain membership inspection | Name `CL02`; domain `hufflab.internal`; `PartOfDomain=True`; Windows 11 Enterprise Evaluation | Passed exactly | `docs/evidence/phase-04/cl02-domain-membership.png` | None. |
+| 2026-08-11 | 04 | Interactive sign-in and `whoami` | Normal domain user authenticates on CL02 | `hufflab\lhuff` signed in successfully | `docs/evidence/phase-04/cl02-lhuff-domain-signin.png` | The nine Phase 03 lab identities were reset to an operator-chosen temporary lab password because their generated values were intentionally never stored. No password was recorded in evidence. |
+| 2026-08-11 | 04 | Final elevated Phase 04 gate | WDS installed/running; exact custom image enabled; zero WDS install images; read-only setup share; no DHCP 60/66/67; exact CL02 DN; secure channel true; vTPM/Secure Boot/80 GB; standard `pre-phase-05` checkpoints | Every assertion passed; DC01, WDS01, and CL02 checkpoints created between 21:16:12 and 21:16:22 | `docs/phase-04-configuration-verification.txt`; `docs/evidence/phase-04/phase-04-final-gate-and-checkpoints.png` | CL01, CM01, and REF01 remained off; automatic checkpoints remained disabled on all six VMs. |
 
 ## Rollback and variance log
 
@@ -95,3 +100,4 @@ not a system-state backup for Active Directory.
 |---|---:|---|---|---|---|
 | 2026-07-21 | 01 | Approved storage-path variance | Lab root, ISO directory, VHD directory, and parent VHDX | `C:` has approximately 43 GB free, below the 500 GB gate; operator approved use of `G:` Backup Disk | Updated authoritative paths to `G:\HyperV\ad-pxe-lab`; Git checkout remains on `C:`. |
 | 2026-07-22 | 01 | Host restore point | WOLF host before Hyper-V lab resource creation | Phase 01 requires a host recovery boundary before VM checkpoints exist | Created restore point `AD PXE Lab pre-Phase-01` before `LabSwitch`, `LabNAT`, parent disk, or VM creation. |
+| 2026-08-11 | 04 | Lab-user credential reset | Nine Phase 03 lab users | Generated Phase 03 passwords were intentionally not stored and could not be retrieved from AD; operator authorized one temporary password for all nine lab identities to complete interactive acceptance testing | Reset exactly `lhuff`, `adm-lhuff`, two SCCM service identities, and five department users; all were enabled and unlocked. Change them before service-account use or any non-lab reuse. |

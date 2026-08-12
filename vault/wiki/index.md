@@ -43,6 +43,10 @@ See [[Meta Index]] for conventions and lint reports.
   synchronized runbook corrections and evidence notebook (`docs/handoffs/phase-01-handoff.md`)
   Live execution is complete through runbook 03; the standard pre-phase-04 checkpoint is ready.
   Publication is tracked in [draft PR #4](https://github.com/lh1207/ad-pxe-lab/pull/4).
+- [[Phase 4 — WDS PXE and CL02 Deployment]] — completed custom-WinPE WDS PXE transport,
+  Windows 11 Enterprise Evaluation deployment to CL02, domain/OU acceptance evidence, and the
+  standard pre-phase-05 checkpoint boundary. Publication is tracked in
+  [draft PR #5](https://github.com/lh1207/ad-pxe-lab/pull/5).
 
 ## Sources ingested
 

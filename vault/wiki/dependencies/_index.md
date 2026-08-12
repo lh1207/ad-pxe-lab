@@ -16,8 +16,8 @@ External dependencies the lab relies on. Pre-seeded from `docs/architecture.md` 
 |---|---|---|
 | [[WOLF Hyper-V Host]] | Host | 64 GB nominal RAM, 16 logical processors, Hyper-V enabled; SSH control verified |
 | Windows Server 2025 Evaluation ISO | DC01, WDS01, CM01 parent VHDX | Server Desktop Experience image |
-| Windows 11 Enterprise Evaluation ISO | REF01, WDS install image | Reference/golden image source |
-| Server 2022 boot.wim | WDS01 standalone PXE | ADR-004 — do not substitute Win11/WS2025 boot.wim |
+| Windows 11 Enterprise Evaluation ISO | REF01, read-only Windows Setup share | Reference/golden image and Phase 04 setup source |
+| Windows ADK 11 + WinPE add-on | WDS01 standalone PXE, CM01 | Custom ADK WinPE payload; see ADR-004 |
 | SQL Server 2022 Evaluation | CM01 | ADR-005 — full SQL Server, not SQL Express |
 | ConfigMgr (SCCM) current branch | CM01 | Primary site, MP, DP, SSRS, PXE responder |
 | WSUS / SUP role | CM01 | Patch compliance workflow (phase 09) |

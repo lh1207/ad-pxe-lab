@@ -9,21 +9,21 @@ original downloads outside the VM disks so the lab can be rebuilt predictably.
 | Item | Official source | Lab use | Evaluation horizon |
 |---|---|---|---|
 | Windows Server 2025 Evaluation ISO | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2025) | DC01, WDS01, CM01, and the unbooted parent VHDX | 180 days |
-| Windows 11 Enterprise Evaluation ISO | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise) | REF01 and WDS install image | 90 days |
-| Windows Server 2022 Evaluation ISO | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022) | Source of the standalone WDS `boot.wim` only | 180 days |
+| Windows 11 Enterprise Evaluation ISO | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise) | REF01 and read-only Windows Setup share for WDS WinPE | 90 days |
+| Windows Server 2022 Evaluation ISO | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022) | Available for server tooling; not a WDS client install-image source | 180 days |
 | SQL Server 2022 Evaluation | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-sql-server-2022) | CM01 default SQL instance | 180 days |
 | SQL Server Management Studio | [Install SSMS](https://learn.microsoft.com/en-us/ssms/install/install) | SQL administration on CM01 | N/A |
 | Configuration Manager Current Branch 2509 Eval | [Microsoft Evaluation Center](https://www.microsoft.com/en-us/evalcenter/download-microsoft-endpoint-configuration-manager) | Site `HUF` | 180 days |
 | Windows ADK 11, version 24H2 | [Download and install the ADK](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) | CM01 deployment tooling | N/A |
-| Windows PE add-on for the ADK | [Download and install the ADK](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) | ConfigMgr WinPE boot images | N/A |
+| Windows PE add-on for the ADK | [Download and install the ADK](https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install) | Custom WDS PXE WinPE payload and ConfigMgr WinPE boot images | N/A |
 | Microsoft ODBC Driver 18 for SQL Server | [Microsoft ODBC Driver download](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server) | ConfigMgr prerequisite on CM01 | N/A |
 | Latest Windows Server 2025 cumulative update | [Windows Server 2025 release health](https://learn.microsoft.com/en-us/windows/release-health/status-windows-server-2025) | Patch DC01 before promotion | Servicing lifecycle |
 
-For the WDS phase, import the Server 2022 `boot.wim`; do not substitute a boot image copied
-from Windows 11 or Windows Server 2025 installation media. Import the Windows 11 Enterprise
-evaluation `install.wim` as the operating-system image. The WDS UI remains intentionally
-interactive for this learning workflow: the `WindowsDeploymentServices` unattend settings do
-not apply to Windows 11, as documented in [WindowsDeploymentServices](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-setup-windowsdeploymentservices).
+For the WDS phase, build and import a custom ADK WinPE image as the PXE payload. WinPE launches
+Windows Setup interactively from a read-only network share containing the Windows 11 Enterprise
+evaluation media; do not import an operating-system install image into standalone WDS. The
+`WindowsDeploymentServices` unattend settings do not apply to Windows 11, as documented in
+[WindowsDeploymentServices](https://learn.microsoft.com/en-us/windows-hardware/customize/desktop/unattend/microsoft-windows-setup-windowsdeploymentservices).
 
 ## Integrity record
 

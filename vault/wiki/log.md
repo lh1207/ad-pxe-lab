@@ -10,6 +10,27 @@ Append-only chronological record of vault operations. New entries go at the TOP.
 
 ---
 
+## 2026-08-11 — publish | Phase 4 opened as draft PR #5
+
+- Type: publication handoff
+- Location: wiki/meta/phase-4-wds-pxe-cl02-deployment.md
+- From: branch codex/phase-04-wds, commit 69d37c5
+- Outcome: the supported custom-WinPE WDS workflow, CL02 deployment evidence, Phase 06
+  reconciliation, and pre-phase-05 boundary are published in
+  [draft PR #5](https://github.com/lh1207/ad-pxe-lab/pull/5) targeting main
+
+---
+
+## 2026-08-11 — save | Phase 4 WDS PXE and CL02 deployment completed
+
+- Type: execution completion and deployment decision
+- Location: wiki/meta/phase-4-wds-pxe-cl02-deployment.md
+- From: live WOLF Hyper-V execution, interactive screenshots, and final assertion transcript
+- Outcome: custom ADK WinPE boots through WDS, Windows 11 Enterprise Evaluation is installed on
+  domain-joined CL02, every Phase 04 gate passes, and standard pre-phase-05 checkpoints exist
+
+---
+
 ## 2026-08-03 — publish | Stage 1 handoff opened as draft PR #4
 
 - Type: publication handoff
