@@ -22,12 +22,13 @@ updated: 2026-08-11T21:32:33-04:00
 - Standard `pre-phase-05` checkpoints exist on DC01, WDS01, and CL02. CL01, CM01, and REF01 remained off; automatic checkpoints remain disabled.
 - Authoritative evidence: `docs/phase-04-configuration-verification.txt`, `docs/lab-notebook.md`, and `docs/evidence/phase-04/`.
 - Phase 06 now uses custom WinPE plus DISM capture/apply through an SMB share, not WDS capture/install images.
+- Commit `69d37c5` is pushed on `codex/phase-04-wds`; draft PR #5 targets `main`.
 
 ## Open Follow-ups
 
 - Rotate the shared temporary lab-user password before SCCM service-account use.
 - Begin Phase 05 from the verified `pre-phase-05` boundary.
-- Review and merge draft PR #4 when appropriate; Phase 04 changes remain on their dedicated branch.
+- Review and merge draft PR #5 when appropriate. Draft PR #4 remains the earlier Stage 1 handoff.
 
 ## Active Threads
 

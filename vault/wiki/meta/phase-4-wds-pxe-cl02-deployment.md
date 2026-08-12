@@ -55,6 +55,12 @@ file synchronization, BCD repair, and verification.
 Screenshots live in `docs/evidence/phase-04/` and the canonical notebook is
 `docs/lab-notebook.md`.
 
+## Publication
+
+Commit `69d37c5` (`Complete Phase 04 WDS PXE deployment`) is published from
+`codex/phase-04-wds` in [draft PR #5](https://github.com/lh1207/ad-pxe-lab/pull/5), targeting
+`main`. The branch was clean and synchronized with its remote tracking branch after publication.
+
 ## Variances and follow-up
 
 The nine Phase 03 lab users were reset to one operator-chosen temporary password because their
