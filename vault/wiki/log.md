@@ -10,6 +10,16 @@ Append-only chronological record of vault operations. New entries go at the TOP.
 
 ---
 
+## 2026-08-11 — save | Phase 4 WDS PXE and CL02 deployment completed
+
+- Type: execution completion and deployment decision
+- Location: wiki/meta/phase-4-wds-pxe-cl02-deployment.md
+- From: live WOLF Hyper-V execution, interactive screenshots, and final assertion transcript
+- Outcome: custom ADK WinPE boots through WDS, Windows 11 Enterprise Evaluation is installed on
+  domain-joined CL02, every Phase 04 gate passes, and standard pre-phase-05 checkpoints exist
+
+---
+
 ## 2026-08-03 — publish | Stage 1 handoff opened as draft PR #4
 
 - Type: publication handoff

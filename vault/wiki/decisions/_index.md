@@ -17,7 +17,7 @@ accurate summaries of that document.
 | ADR-001 | Internal switch plus host NAT | Accepted |
 | ADR-002 | WDS on its own VM | Accepted |
 | ADR-003 | `.internal` domain suffix (`hufflab.internal` / `HUFFLAB`) | Accepted |
-| ADR-004 | Server 2022 boot image for standalone WDS | Accepted |
+| ADR-004 | Custom ADK WinPE payload for standalone WDS PXE | Accepted |
 | ADR-005 | Full SQL Server 2022 on CM01 (no SQL Express) | Accepted |
 | ADR-006 | Phased PXE: WDS first, ConfigMgr second | Accepted |
 | ADR-007 | Same-subnet PXE without DHCP options or IP helpers | Accepted |

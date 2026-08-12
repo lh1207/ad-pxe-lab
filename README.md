@@ -76,9 +76,10 @@ This design takes useful mechanics from MSLab (parent disks, NAT/private network
 settings), AutomatedLab (phase-oriented role decomposition), and established manual guides (a
 proven DC01/CM01 separation). It intentionally avoids their weak points: it does not hide AD work
 behind a framework, combine SCCM with a domain controller, or depend on MDT, which was retired in
-October 2025. Standalone WDS is used only as a learning stage: modern WDS rejects Win11/Server
-2025 media `boot.wim`, so this lab deliberately uses Server 2022 `boot.wim` before moving to
-Configuration Manager OSD.
+October 2025. Standalone WDS is used only as a learning-stage PXE transport: the WDS boot image
+is a custom ADK WinPE image, and WinPE launches Windows Setup from a read-only network share.
+The design avoids the unsupported standalone-WDS install-image workflow before moving to
+Configuration Manager OSD. See Microsoft's [WDS documentation](https://learn.microsoft.com/en-us/windows-server/administration/windows-deployment-services/get-started-with-wds).
 
 This is a learning lab, not a production blueprint. Evaluation media expires, SCCM is co-located
 with SQL and WSUS on CM01 to fit the budget, and the same-subnet design needs neither DHCP options

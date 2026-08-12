@@ -19,3 +19,8 @@ frontmatter fields, wikilink format, `.raw/` handling, index/log/hot-cache updat
 
 None yet. Run "lint the wiki" to generate the first health check once real content has been
 ingested.
+
+## Execution records
+
+- [[Phase 1 Handoff — AD Foundation]]
+- [[Phase 4 — WDS PXE and CL02 Deployment]]
