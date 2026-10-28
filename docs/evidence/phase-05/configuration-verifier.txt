@@ -1,0 +1,53 @@
+STAGE HOST_PREFLIGHT
+
+
+HostName                  : wolf
+IsWindows                 : True
+IsElevated                : True
+PowerShellEdition         : Desktop
+PowerShellVersion         : 5.1.26100.9711
+RepositoryRoot            : C:\HyperV\ad-pxe-lab
+RunningVMs                : CL02, DC01
+RunningMemoryGB           : 7.19
+PrePhase05Checkpoints     : DC01:pre-phase-05, CL02:pre-phase-05
+AutomaticCheckpoints      : Disabled on all lab VMs
+PowerShellDirectAvailable : True
+Result                    : PASS - Windows host boundary is ready for Phase 05
+
+
+
+STAGE CREDENTIAL_PROMPT
+STAGE OPEN_DC01_SESSION
+STAGE OPEN_CL02_SESSION
+STAGE DC01_CONFIGURATION_ASSERTIONS
+Default Domain Policy saved settings and effective password policy: PASS
+Administrator PSO and resultant policy: PASS
+
+
+DefaultDomainPolicyId : 31b2f340-016d-11d2-945f-00c04fb984f9
+BaselineGpoId         : 3d5e8657-4b90-4364-b026-2bad36ea027f
+DriveMapsGpoId        : 07473a8a-8c5f-4296-b09a-c7e7f6149ef7
+Result                : DC01_CONFIGURATION_ASSERTIONS_PASS
+PSComputerName        : DC01
+RunspaceId            : f50f5aa8-03e2-49b7-8f4c-a007a0c0194e
+
+
+
+STAGE FINAL_GPO_REPORTS_AND_BACKUPS
+GPO_EVIDENCE_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\gpo-configuration-backup-20261028-182023968
+STAGE CL02_COMPUTER_GPRESULT_EXPORT
+
+
+GpResultPath   : C:\Users\ADMINI~1\AppData\Local\Temp\phase05-computer-gpresult-20261028-182023968.xml
+Result         : CL02_GPRESULT_EXPORTED
+PSComputerName : CL02
+RunspaceId     : a61e6b2b-895a-42c4-83fe-c3261cb9f2f4
+
+
+
+
+CL02_COMPUTER_GPRESULT_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\CL02-computer-gpresult-20261028-182023968.xml
+STAGE CL02_EFFECTIVE_REGISTRY_ASSERTIONS
+CL02_EFFECTIVE_REGISTRY_ASSERTIONS_PASS
+CONFIGURATION_AND_REGISTRY_PASS_RSOP_HR_INTERACTIVE_PENDING
+Remaining required evidence: inspect the copied CL02 RSOP XML to verify applied GPO structure; normal non-elevated HUFFLAB\hr.jones H: test after sign-out/sign-in; interactive logon-banner observation; screenshots required by the runbook. No Phase 06 checkpoint was created.

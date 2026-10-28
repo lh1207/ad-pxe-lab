@@ -49,7 +49,7 @@ directory backup for Phase 01 because no VM checkpoint exists before the lab VMs
 | 02 | 2026-07-22 | 2026-07-22 | `pre-phase-03` | 2026-07-22 | Windows Server 2025 forest, AD-integrated DNS, DNS forwarders/scavenging, static network, and authorized DHCP scope verified. |
 | 03 | 2026-07-22 | 2026-08-03 | `pre-phase-04` | 2026-08-03 | OU/account/group structure and AGDLP share passed the runbook verification; only DC01 remains running. |
 | 04 | 2026-08-10 | 2026-08-11 | `pre-phase-05` on DC01, WDS01, and CL02 | 2026-08-11 | WDS01 delivered custom ADK WinPE by PXE; WinPE launched Windows 11 Enterprise Evaluation Setup from read-only `Win11Source`; CL02 joined the domain, landed in Workstations, and passed secure-channel and `lhuff` sign-in checks. |
-| 05 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
+| 05 | 2026-10-28 | _pending_ | `pre-phase-06` pending; retained `pre-phase-05` | 2026-10-28 | GPO configuration, backups, CL02 computer baseline/RSOP, visible banner, and normal HR drive-map/user report pass. Final fresh assertions and Phase 06 checkpoints remain pending. |
 | 06 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 07 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 08 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
@@ -90,6 +90,17 @@ and its successful rerun remain distinguishable.
 | 2026-08-10 | 04 | CL02 domain membership inspection | Name `CL02`; domain `hufflab.internal`; `PartOfDomain=True`; Windows 11 Enterprise Evaluation | Passed exactly | `docs/evidence/phase-04/cl02-domain-membership.png` | None. |
 | 2026-08-11 | 04 | Interactive sign-in and `whoami` | Normal domain user authenticates on CL02 | `hufflab\lhuff` signed in successfully | `docs/evidence/phase-04/cl02-lhuff-domain-signin.png` | The nine Phase 03 lab identities were reset to an operator-chosen temporary lab password because their generated values were intentionally never stored. No password was recorded in evidence. |
 | 2026-08-11 | 04 | Final elevated Phase 04 gate | WDS installed/running; exact custom image enabled; zero WDS install images; read-only setup share; no DHCP 60/66/67; exact CL02 DN; secure channel true; vTPM/Secure Boot/80 GB; standard `pre-phase-05` checkpoints | Every assertion passed; DC01, WDS01, and CL02 checkpoints created between 21:16:12 and 21:16:22 | `docs/phase-04-configuration-verification.txt`; `docs/evidence/phase-04/phase-04-final-gate-and-checkpoints.png` | CL01, CM01, and REF01 remained off; automatic checkpoints remained disabled on all six VMs. |
+
+### Phase 05 verified evidence — final gate pending
+
+| Date | Check | Observed result | Evidence |
+|---|---|---|---|
+| 2026-10-28 | Attended initialization and pre-change GPO backup | Both original GPOs backed up and copied to host; explicit administrator PSO and exact enabled/non-enforced OU links pass | `docs/phase-05-session/gpo-initialize-20261028-030633367.txt`; `gpo-backup-20261028-030633367/` |
+| 2026-10-28 | Saved configuration and effective computer policy | DDP template/effective policy 14/True/24/90 days; administrator PSO; baseline banner/inactivity/removable-storage; targeted H: preference; all four final GPO backups/reports; CL02 effective registry pass | `docs/phase-05-session/gpo-configuration-20261028-033904897.txt`; `gpo-configuration-backup-20261028-033904897/` |
+| 2026-10-28 | CL02 computer resultant policy | Exact baseline GUID applied via Workstations OU; enabled/valid/filter allowed, no access denial, matching AD/SYSVOL version 12 | `docs/phase-05-session/computer-rsop-verification.txt`; `CL02-computer-gpresult-20261028-033904897.xml` |
+| 2026-10-28 | CL02 visible logon banner | Approved regular-hyphen title and exact approved message visibly displayed | `docs/evidence/phase-05/cl02-logon-banner.png` |
+| 2026-10-28 | HR interactive acceptance | Operator-pasted normal CONSOLE LOGON, Medium Mandatory Level session is hufflab\hr.jones; H: maps to \\DC01\HRShare and is accessible; GPO-U-IT-DriveMaps is applied | `docs/phase-05-session/hr-user-verification-20261028.txt` |
+| 2026-10-28 | Completion boundary | Operator pauses; latest finalizer rejects current Drive Maps targeting structure before checkpoint creation. Inspect XML on resume. Final gate and Phase 06 boundary remain pending | `docs/phase-05-session/gpo-finalize-20261028-042526730.txt`; `docs/phase-05-configuration-verification.txt` |
 
 ## Rollback and variance log
 

@@ -1,0 +1,6 @@
+PS5.1_PARSE_PASS: scripts\05-Test-Phase05Environment.ps1
+PS5.1_PARSE_PASS: scripts\05-Test-GuestPrerequisites.ps1
+PS5.1_PARSE_PASS: scripts\05-InitializeGpoSuite.ps1
+PS5.1_PARSE_PASS: scripts\05-Test-GpoConfiguration.ps1
+PS5.1_PARSE_PASS: scripts\05-FinalizeGpoSuite.ps1
+PASS: 3 actual OU guards x 8 regression cases; no guest access.

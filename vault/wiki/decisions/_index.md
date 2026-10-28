@@ -26,4 +26,7 @@ accurate summaries of that document.
 
 ## Status
 
+- [[Lab Publication Boundary]] — operator-approved public evidence categories, grounded in
+  merged PRs #3–#5; raw exports, recovery material and receipts stay local.
+
 Source files are on `main`. Full per-page ingestion into this wiki is still pending — say "ingest [file]" to do it.

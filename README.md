@@ -43,8 +43,10 @@ behind each major choice in the [architecture decisions](docs/decisions.md).
 2. On the Hyper-V host, use the [Stage 1 execution handoff](docs/handoffs/phase-01-handoff.md) as the
    operator overview and complete the authoritative [Phase 01 runbook](runbooks/01-host-prep.md).
    Scripts create only the foundation and base OS; they do not configure product roles.
-3. Work through Phases 02–10 in order, taking the named Hyper-V checkpoint before each phase and
-   recording results in the [lab notebook](docs/lab-notebook.md).
+3. Work through Phases 02–04 in order. After Phase 04, use the
+   [Phase 05 Windows-host handoff](docs/handoffs/phase-05-handoff.md) to bind execution to WOLF and
+   avoid Linux/WSL/cloud-shell confusion, then continue through Phases 05–10. Take the named
+   Hyper-V checkpoint before each phase and record results in the [lab notebook](docs/lab-notebook.md).
 4. Keep WDS01 as the sole PXE responder through the WDS and golden-image work. In Phase 10, first
    disable and power it off, prove PXE times out, and only then enable CM01 PXE.
 5. Repeat the [AD operations drills](runbooks/drills-ad-ops.md) and retain screenshots, command
@@ -89,7 +91,8 @@ with SQL and WSUS on CM01 to fit the budget, and the same-subnet design needs ne
 
 - **Docs:** [architecture](docs/architecture.md), [IP plan](docs/ip-plan.md),
   [decisions](docs/decisions.md), [ISO checklist](docs/iso-checklist.md),
-  [Stage 1 execution handoff](docs/handoffs/phase-01-handoff.md), and
+  [Stage 1 execution handoff](docs/handoffs/phase-01-handoff.md),
+  [Phase 05 Windows-host handoff](docs/handoffs/phase-05-handoff.md), and
   [lab notebook](docs/lab-notebook.md).
 - **Runbooks:** [conventions](runbooks/00-conventions.md), [Phases 01–03](runbooks/01-host-prep.md),
   [04](runbooks/04-wds-pxe-deploy.md), [05](runbooks/05-gpo-suite.md),
@@ -98,5 +101,7 @@ with SQL and WSUS on CM01 to fit the budget, and the same-subnet design needs ne
   [10](runbooks/10-osd-pxe-handoff.md), and [recurring drills](runbooks/drills-ad-ops.md).
 - **Automation:** [lab configuration](scripts/lab.config.psd1), [host readiness](scripts/00-Test-HostReadiness.ps1),
   [switch/NAT](scripts/01-New-LabSwitch.ps1), [parent disk](scripts/02-New-LabParentDisk.ps1),
-  [VM creation](scripts/03-New-LabVM.ps1), [teardown](scripts/99-Remove-Lab.ps1), and the
+  [VM creation](scripts/03-New-LabVM.ps1),
+  [Phase 05 environment gate](scripts/05-Test-Phase05Environment.ps1),
+  [teardown](scripts/99-Remove-Lab.ps1), and the
   [server unattend template](scripts/unattend/unattend-server-base.xml).
