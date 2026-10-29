@@ -8,8 +8,8 @@ standard `pre-phase-06` checkpoints: DC01
 `69c63c35-f7aa-4dec-add4-37358ef7b111` at 20:40:21 and CL02
 `56d7c809-6470-4737-a610-8477a10e4eb1` at 20:40:29. Only DC01 and CL02 were running.
 Publication branch: `codex/phase-05-gpo-suite`. Publication is open as
-[PR #6](https://github.com/lh1207/ad-pxe-lab/pull/6); Root will add the completion evidence and
-project-memory record in a follow-up commit.
+[PR #6](https://github.com/lh1207/ad-pxe-lab/pull/6). Completion evidence is published;
+project memory and its receipt are saved locally.
 
 ## Requirements and progress
 
