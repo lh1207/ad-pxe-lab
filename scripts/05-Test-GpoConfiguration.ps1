@@ -53,7 +53,7 @@ try {
     $cl = New-PSSession -VMName CL02 -Credential $domainAdmin -ErrorAction Stop
 
     Write-Stage 'STAGE DC01_CONFIGURATION_ASSERTIONS'
-    Invoke-Command -Session $dc -ScriptBlock {
+    $configuration = @(Invoke-Command -Session $dc -ScriptBlock {
         Set-StrictMode -Version Latest
         $ErrorActionPreference = 'Stop'
 
@@ -275,7 +275,11 @@ try {
             DriveMapsGpoId = $driveMaps.Id.Guid.ToString()
             Result = 'DC01_CONFIGURATION_ASSERTIONS_PASS'
         }
-    } | Tee-Object -FilePath $logPath -Append | Out-Host
+    } | Tee-Object -FilePath $logPath -Append | Where-Object { $_ -isnot [string] })
+    if ($configuration.Count -ne 1 -or $configuration[0].Result -ne 'DC01_CONFIGURATION_ASSERTIONS_PASS') {
+        throw 'DC01 did not return exactly one validated GPO inventory result.'
+    }
+    $configuration[0] | Out-Host
 
     Write-Stage 'STAGE FINAL_GPO_REPORTS_AND_BACKUPS'
     $remoteEvidencePath = Invoke-Command -Session $dc -ArgumentList $stamp -ScriptBlock {
@@ -382,6 +386,8 @@ try {
         LogPath = $logPath
         ComputerGpResultPath = $hostComputerGpResult
         HostEvidencePath = $hostEvidencePath
+        BaselineGpoId = $configuration[0].BaselineGpoId
+        DriveMapsGpoId = $configuration[0].DriveMapsGpoId
     }
 }
 catch {

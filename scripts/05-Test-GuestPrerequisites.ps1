@@ -3,6 +3,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 Set-Location 'C:\HyperV\ad-pxe-lab'
 $sessionRoot = 'C:\HyperV\ad-pxe-lab\docs\phase-05-session'
+New-Item -ItemType Directory -Path $sessionRoot -Force | Out-Null
 $log = Join-Path $sessionRoot 'guest-prerequisites.txt'
 $status = Join-Path $sessionRoot 'guest-prerequisites-status.txt'
 try {

@@ -13,6 +13,16 @@ project memory and its receipt are saved locally.
 
 ## Requirements and progress
 
+### PR review follow-up
+
+- [x] Replace session-specific custom GPO GUIDs with IDs returned by the validated current inventory.
+- [x] Create the prerequisite session directory before writing logs on a fresh checkout.
+- [x] Isolated generated-ID/rejection and fresh-directory regressions, existing 24 inheritance cases,
+  and Windows PowerShell 5.1 parsing pass. Running lab/checkpoints are preserved.
+- [x] Scoped fixes are published on the existing PR #6 branch; updated outcome is saved locally.
+
+### Original phase requirements
+
 - [x] Phase 04 boundary and existing standard pre-phase-05 checkpoints verified.
 - [x] Administrator recovery completed; normal console sign-in confirmed. Do not repeat recovery.
 - [x] Elevated Windows WOLF host and both guest prerequisites verified.

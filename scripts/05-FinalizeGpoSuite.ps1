@@ -43,6 +43,9 @@ try {
     $verification = @(& '.\scripts\05-Test-GpoConfiguration.ps1' -Credential $domainAdmin)
     if ($verification.Count -ne 1 -or $verification[0].Result -ne 'CONFIGURATION_AND_REGISTRY_PASS_RSOP_HR_INTERACTIVE_PENDING') { throw 'Configuration verifier did not return the expected pending result.' }
     $v = $verification[0]
+    foreach ($id in @($v.BaselineGpoId,$v.DriveMapsGpoId)) {
+        if ([string]::IsNullOrWhiteSpace($id) -or [guid]$id -eq [guid]::Empty) { throw 'Verifier returned an invalid custom GPO identifier.' }
+    }
     foreach ($path in @($v.LogPath,$v.ComputerGpResultPath,$v.HostEvidencePath)) { if ([string]::IsNullOrWhiteSpace($path) -or -not (Test-Path -LiteralPath $path)) { throw "Verifier evidence path is missing: $path" } }
     Write-Stage 'VERIFIER_RESULT_ACCEPTED'
 
@@ -51,7 +54,7 @@ try {
     $cx.Load($v.ComputerGpResultPath)
     $cg = @($cx.SelectNodes('//*[local-name()="ComputerResults"]/*[local-name()="GPO"]') | Where-Object { $_.Name -eq 'GPO-C-Workstation-Baseline' })
     if ($cg.Count -ne 1) { throw 'Expected exactly one computer baseline GPO in RSOP.' }
-    Assert-RsopGpo $cg[0] 'GPO-C-Workstation-Baseline' '3d5e8657-4b90-4364-b026-2bad36ea027f' 'hufflab.internal/HUFFLAB/Workstations' | Out-Null
+    Assert-RsopGpo $cg[0] 'GPO-C-Workstation-Baseline' $v.BaselineGpoId 'hufflab.internal/HUFFLAB/Workstations' | Out-Null
     $cv = $cg[0]
     if ([string]::IsNullOrWhiteSpace([string]$cv.VersionDirectory) -or $cv.VersionDirectory -ne $cv.VersionSysvol) { throw 'Computer RSOP AD/SYSVOL versions differ or are missing.' }
 
@@ -82,7 +85,7 @@ try {
     if ($ur.InnerText -match '(?i)hr\.jones') { Write-Stage 'USER_RSOP_IDENTITY: HUFFLAB\hr.jones' } else { Write-Stage 'USER_RSOP_IDENTITY_LIMITATION: schema has no explicit user identity; pasted HR evidence required'; if ($hrText -notmatch '(?i)HUFFLAB\\hr\.jones') { throw 'HR identity is absent from both RSOP and pasted evidence.' } }
     $ug = @($ur.SelectNodes('./*[local-name()="GPO"]') | Where-Object { $_.Name -eq 'GPO-U-IT-DriveMaps' })
     if ($ug.Count -ne 1) { throw 'Expected exactly one user drive-map GPO in RSOP.' }
-    Assert-RsopGpo $ug[0] 'GPO-U-IT-DriveMaps' '07473a8a-8c5f-4296-b09a-c7e7f6149ef7' 'hufflab.internal/HUFFLAB/Users' | Out-Null
+    Assert-RsopGpo $ug[0] 'GPO-U-IT-DriveMaps' $v.DriveMapsGpoId 'hufflab.internal/HUFFLAB/Users' | Out-Null
     if ([string]::IsNullOrWhiteSpace([string]$ug[0].VersionDirectory) -or $ug[0].VersionDirectory -ne $ug[0].VersionSysvol) { throw 'User RSOP AD/SYSVOL versions differ or are missing.' }
     Write-Stage 'CL02 LIVE_ASSERTIONS_PASS'
     Remove-PSSession $cl; $cl = $null
