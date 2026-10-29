@@ -1,14 +1,13 @@
 # Phase 05 Handoff — GPO Suite on WOLF
 
-> **Latest status, 2026-10-28:** the 18:20 configuration verifier passes after the earlier
-> targeting failure. GPO/backups, CL02 computer policy/RSOP, banner, and normal HR-user H:
-> mapping/access/applied user GPO evidence are saved. Operator requests branch/PR publication.
-> Latest saved finalizer remains FAIL at 04:25; no subsequent finalizer PASS or Phase 06 checkpoint
-> record is available. The PR records this distinction and final gate remains pending.
-> Do not rerun initialization or password recovery.
+> **Completed, 2026-10-28:** the attended finalizer reports `PHASE 05 FINAL GATE: PASS` after
+> fresh configuration, computer RSOP, and HR-user RSOP assertions. It creates Standard
+> `pre-phase-06` checkpoints on DC01 (`69c63c35-f7aa-4dec-add4-37358ef7b111`) and CL02
+> (`56d7c809-6470-4737-a610-8477a10e4eb1`); only DC01 and CL02 were running. The GPMC link,
+> drive-map target, banner, HR mapping, and final-gate captures are saved. Do not rerun
+> initialization, password recovery, or finalization.
 > The operator approves either a regular hyphen or an em dash in the banner title. Read the
-> latest execution-plan boundary and `phase-05-operator-steps.md`; earlier observations below
-> remain historical.
+> completion record and `phase-05-operator-steps.md`; earlier observations below remain historical.
 
 > **Type:** execution handoff · **Covers:** [Phase 05 runbook](../../runbooks/05-gpo-suite.md)
 > · **Starts from:** verified Phase 04 boundary · **Execution host:** Windows Hyper-V host `WOLF`

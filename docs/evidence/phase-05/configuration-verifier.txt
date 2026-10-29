@@ -8,7 +8,7 @@ PowerShellEdition         : Desktop
 PowerShellVersion         : 5.1.26100.9711
 RepositoryRoot            : C:\HyperV\ad-pxe-lab
 RunningVMs                : CL02, DC01
-RunningMemoryGB           : 7.19
+RunningMemoryGB           : 7.5
 PrePhase05Checkpoints     : DC01:pre-phase-05, CL02:pre-phase-05
 AutomaticCheckpoints      : Disabled on all lab VMs
 PowerShellDirectAvailable : True
@@ -29,24 +29,24 @@ BaselineGpoId         : 3d5e8657-4b90-4364-b026-2bad36ea027f
 DriveMapsGpoId        : 07473a8a-8c5f-4296-b09a-c7e7f6149ef7
 Result                : DC01_CONFIGURATION_ASSERTIONS_PASS
 PSComputerName        : DC01
-RunspaceId            : f50f5aa8-03e2-49b7-8f4c-a007a0c0194e
+RunspaceId            : 8c8e7b4e-4441-400d-8ca0-7d22564d648f
 
 
 
 STAGE FINAL_GPO_REPORTS_AND_BACKUPS
-GPO_EVIDENCE_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\gpo-configuration-backup-20261028-182023968
+GPO_EVIDENCE_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\gpo-configuration-backup-20261028-203958007
 STAGE CL02_COMPUTER_GPRESULT_EXPORT
 
 
-GpResultPath   : C:\Users\ADMINI~1\AppData\Local\Temp\phase05-computer-gpresult-20261028-182023968.xml
+GpResultPath   : C:\Users\ADMINI~1\AppData\Local\Temp\phase05-computer-gpresult-20261028-203958007.xml
 Result         : CL02_GPRESULT_EXPORTED
 PSComputerName : CL02
-RunspaceId     : a61e6b2b-895a-42c4-83fe-c3261cb9f2f4
+RunspaceId     : 26fc9fb4-0443-4a7e-96f4-80197d917988
 
 
 
 
-CL02_COMPUTER_GPRESULT_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\CL02-computer-gpresult-20261028-182023968.xml
+CL02_COMPUTER_GPRESULT_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\CL02-computer-gpresult-20261028-203958007.xml
 STAGE CL02_EFFECTIVE_REGISTRY_ASSERTIONS
 CL02_EFFECTIVE_REGISTRY_ASSERTIONS_PASS
 CONFIGURATION_AND_REGISTRY_PASS_RSOP_HR_INTERACTIVE_PENDING

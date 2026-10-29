@@ -1,0 +1,10 @@
+FRESH CL02 USER RSOP ASSERTIONS: PASS
+Local source: CL02-user-gpresult-20261028-203937775.xml
+SHA256: 19C12C415132A846537FCF9AD2F1F1D9F16BBFA864B16B40B375527A3B0575F2
+Identity: HUFFLAB\hr.jones
+Applied GPO: GPO-U-IT-DriveMaps
+GUID: 07473a8a-8c5f-4296-b09a-c7e7f6149ef7
+Finalizer asserts enabled/valid/filter allowed, no denial, matching AD/SYSVOL versions,
+and applied Users OU link. CL02 domain/DNS/secure-channel live assertions pass.
+Normal console H: access evidence is preserved separately in hr-user-verification.txt.
+Full XML remains local and excluded from Git.

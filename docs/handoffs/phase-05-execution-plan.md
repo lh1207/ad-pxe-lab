@@ -1,12 +1,15 @@
 # Phase 05 execution plan
 
-## Current boundary — 2026-10-28
+## Completed boundary — 2026-10-28
 
-Operator requests branch and PR publication after reporting a pass. The latest saved
-configuration verifier (18:20 EDT) passes. The latest saved finalizer remains the 04:25 FAIL
-at its Drive Maps targeting assertion; no newer finalizer PASS or pre-phase-06 checkpoint
-record is available. A configuration pass is not a checkpoint-creation record.
-Publication branch: `codex/phase-05-gpo-suite`. Publish as draft with the remaining gate explicit.
+The attended finalizer completes at 20:40 EDT with `PHASE 05 FINAL GATE: PASS`. It reruns the
+configuration verifier, validates fresh computer and HR-user RSOP, and records the required
+standard `pre-phase-06` checkpoints: DC01
+`69c63c35-f7aa-4dec-add4-37358ef7b111` at 20:40:21 and CL02
+`56d7c809-6470-4737-a610-8477a10e4eb1` at 20:40:29. Only DC01 and CL02 were running.
+Publication branch: `codex/phase-05-gpo-suite`. Publication is open as
+[PR #6](https://github.com/lh1207/ad-pxe-lab/pull/6); Root will add the completion evidence and
+project-memory record in a follow-up commit.
 
 ## Requirements and progress
 
@@ -21,8 +24,8 @@ Publication branch: `codex/phase-05-gpo-suite`. Publish as draft with the remain
 - [x] Workstation baseline and HR-targeted preference saved and verified; final GPO reports/backups exported.
 - [x] CL02 effective computer settings and applied baseline RSOP verified.
 - [x] Visible banner and normal hr.jones H: target/access/applied user GPO recorded.
-- [ ] Fresh finalizer PASS and standard pre-phase-06 checkpoints on DC01 and CL02.
-- [ ] Complete remaining native GPMC link/target screenshot evidence.
+- [x] Fresh finalizer PASS and standard pre-phase-06 checkpoints on DC01 and CL02.
+- [x] Native GPMC link and HR-target screenshot evidence captured, including final-gate capture.
 
 ## Portable evidence
 
@@ -33,26 +36,19 @@ console output and banner screenshot. Full RSOP, GPMC exports, manifests and bac
 under the publication boundary verified against merged PRs #3–#5.
 
 The normal HR test proves hufflab\hr.jones, H: to \\DC01\HRShare, accessible True, the applied
-GPO-U-IT-DriveMaps, CONSOLE LOGON, and Medium Mandatory Level. Its timestamp is 03:54 EDT;
-it is preserved historical user-session evidence, not a fresh finalizer session.
+GPO-U-IT-DriveMaps, CONSOLE LOGON, and Medium Mandatory Level. The finalizer adds fresh saved
+user RSOP and direct applied-GPO assertions before it creates the checkpoint boundary.
 
 The operator approves either a regular hyphen or an em dash in the banner title. Do not change
 punctuation merely to satisfy a verifier. Physical USB and timed inactivity behavior are not
 recorded as exercised. Screenshot capture/rendering limitations are documented with the exports.
 
-## Resume the remaining gate
+## Completion record
 
-1. Keep the existing pre-phase-05 checkpoints and configuration. Do not rerun initialization,
-   reset accounts, or use the old pending-script runner.
-2. Inspect current Drive Maps targeting if finalization still rejects it. Verify the positive
-   RG-HR-Staff membership target; do not loosen checks or recreate GPOs blindly.
-3. Follow [operator steps](phase-05-operator-steps.md), especially the attended finalizer in
-   Administrator Windows PowerShell on WOLF. It uses only in-memory prompted credentials.
-4. Inspect the finalizer transcript and fresh computer/user RSOP. It must prove the required
-   GPO applications, domain/DNS/secure channel, service readiness, and exact VM boundary.
-5. Only then create/verify standard pre-phase-06 checkpoints. The finalizer refuses duplicates
-   and non-standard checkpoint configuration, and preserves partial state on failure.
-6. Update notebook, canonical final gate, and persistence receipt from actual evidence.
+Do not rerun initialization, recovery, or the finalizer simply to recreate evidence. The finalizer
+already records the required source and resultant policy assertions, DC01 service state, CL02
+domain/DNS/secure-channel state, fresh computer and user RSOP, and the checkpoint boundary. Use
+the retained `pre-phase-05` checkpoints only for a deliberate wholesale rollback.
 
 ## Publication checklist
 
@@ -66,5 +62,5 @@ commit is superseded locally; it is not published through another transport.
 - [x] Curate portable evidence; exclude raw recovery/session artifacts and local tools.
 - [x] Windows PowerShell 5.1 parser and 24 inheritance-guard regression cases pass.
 - [x] Commit the precedent-matched payload; excluded raw exports are absent from branch history.
-- [ ] Push and create/attach draft PR; automatic review requires exact commit/public-destination approval.
-- [ ] Save the publication outcome and receipt. Phase 05 final gate remains pending.
+- [x] Published [PR #6](https://github.com/lh1207/ad-pxe-lab/pull/6) from the reviewed branch.
+- [ ] Save the publication outcome and receipt after publication. Phase 05 final gate is complete.

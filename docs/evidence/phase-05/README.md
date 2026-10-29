@@ -1,24 +1,25 @@
 # Phase 05 portable evidence
 
-The configuration verifier passes at 18:20 EDT on 2026-10-28. This directory preserves its
-reviewed text output and computer assertion record, operator-provided normal HR console output,
-and the visible CL02 banner. These match the evidence categories published in earlier phases.
-Full computer RSOP XML, native GPMC XML/HTML reports, backup manifests and backup trees remain
-local and ignored. They are available in the local session directory and on DC01 as applicable.
+Phase 05 final gate passes on 2026-10-28 at 20:40 EDT. The finalizer verifies source/effective
+policy, fresh computer/user RSOP, CL02 domain/DNS/secure channel, DC01 services, host boundary,
+and Standard pre-phase-06 checkpoints.
 
-The normal HR console output is operator-provided evidence from 03:54 EDT, not a newly generated
-user session. It shows hufflab\hr.jones, H: to \\DC01\HRShare, access True, the applied user GPO,
-CONSOLE LOGON, and Medium Mandatory Level. The newer local computer report is independently
-asserted; the public text record summarizes those assertions.
+- configuration-verifier.txt: nested run 203958007; its partial result is superseded by final-gate-verification.txt.
+- computer-rsop-verification.txt and user-rsop-verification.txt: fresh local XML assertion summaries.
+- hr-user-verification.txt: operator-provided normal hr.jones console test, H: share access and applied GPO.
+- cl02-logon-banner.png: observed approved banner; regular hyphen explicitly accepted.
+- gpmc-workstations-link.png and gpmc-users-link.png: enabled, non-enforced links.
+- hr-drive-map-item.png, hr-drive-map-properties.png, hr-drive-map-common.png and
+  hr-drive-map-targeting.png: H: Update mapping and positive RG-HR-Staff user targeting.
+- configuration-verifier-pass.png: earlier 20:38 configuration pass.
+- phase-05-final-gate-and-checkpoints.png: final PASS and checkpoint records.
 
-The finalizer's last saved run is a separate 04:25 failure at the Drive Maps targeting assertion.
-There is no saved subsequent finalizer PASS or pre-phase-06 checkpoint record. Configuration
-verification does not establish this final checkpoint boundary; the Phase 05 final gate remains
-pending. No physical USB or timed inactivity-behavior test is recorded.
+Standard pre-phase-06 checkpoints: DC01 69c63c35-f7aa-4dec-add4-37358ef7b111 at 20:40:21;
+CL02 56d7c809-6470-4737-a610-8477a10e4eb1 at 20:40:29.
+Script assertions verify Standard configuration and resulting snapshot type.
+Only DC01/CL02 run using 7.5 GB; automatic checkpoints remain disabled.
 
-The GPMC reports provide link and item-level targeting evidence. Additional native screenshots
-remain pending because automated capture/rendering was unavailable; see the rendering status.
-The regular hyphen in the banner title is explicitly operator-approved.
-
-Raw recovery logs, BCD/hive artifacts, downloaded tools, and pending-script runners are local-only
-and are not part of this evidence set. No password value is included.
+Physical USB denial and timed 900-second inactivity behavior were not exercised under the
+runbook safety qualifier. Source/effective settings pass.
+Raw RSOP/GPMC exports, manifests, backups, recovery material and receipts remain local and ignored.
+Publication follows prior reviewed text/screenshot categories: https://github.com/lh1207/ad-pxe-lab/pull/6.

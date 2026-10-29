@@ -1,142 +1,25 @@
-PHASE 05 CONFIGURATION VERIFICATION - CONFIGURATION PASS; FINAL BOUNDARY PENDING
-Latest configuration verification: 2026-10-28 18:20 EDT.
-Reviewed summary evidence follows the publication precedent in merged PRs #3-5.
-Full RSOP/GPMC exports, manifests, backups and raw sessions remain local.
+PHASE 05 COMPLETION RECORD — 2026-10-28
+Host: WOLF; elevated Windows PowerShell 5.1; repository C:\HyperV\ad-pxe-lab.
+Finalizer: gpo-finalize-20261028-203937775.txt.
+Nested verifier: gpo-configuration-20261028-203958007.txt.
 
-SOURCE: docs\evidence\phase-05\configuration-verifier.txt
-SHA256: 7FDA68EB6C342A508344453AB396D551DB11A3A066530AD2BD6B192CAD815696
-STAGE HOST_PREFLIGHT
+PASS: Default Domain Policy saved and effective password policy.
+PASS: Administrator PSO properties, direct adm-lhuff assignment and resultant policy.
+PASS: exact four-GPO inventory and enabled/non-enforced OU links, no blocked inheritance.
+PASS: baseline source/effective registry: approved banner, inactivity 900, removable-storage denial.
+PASS: H: Update mapping to \\DC01\HRShare with one positive RG-HR-Staff user target.
+PASS: final GPO reports/backups exported and retained locally.
+PASS: fresh computer/user RSOP exact GPOs, enabled/valid/filter allowed, no denial, matching versions.
+PASS: normal non-elevated HUFFLAB\hr.jones console H: access and visible approved logon banner.
+PASS: CL02 domain/DNS/secure channel and DC01 NTDS/DNS/Netlogon readiness.
+PASS: only DC01/CL02 running, 7.5 GB, automatic checkpoints disabled, pre-phase-05 retained.
+PASS: Standard checkpoint configuration and resulting snapshot type verified.
 
+CHECKPOINT pre-phase-06 DC01 ID=69c63c35-f7aa-4dec-add4-37358ef7b111 CreationTime=2026-10-28 20:40:21 EDT
+CHECKPOINT pre-phase-06 CL02 ID=56d7c809-6470-4737-a610-8477a10e4eb1 CreationTime=2026-10-28 20:40:29 EDT
 
-HostName                  : wolf
-IsWindows                 : True
-IsElevated                : True
-PowerShellEdition         : Desktop
-PowerShellVersion         : 5.1.26100.9711
-RepositoryRoot            : C:\HyperV\ad-pxe-lab
-RunningVMs                : CL02, DC01
-RunningMemoryGB           : 7.19
-PrePhase05Checkpoints     : DC01:pre-phase-05, CL02:pre-phase-05
-AutomaticCheckpoints      : Disabled on all lab VMs
-PowerShellDirectAvailable : True
-Result                    : PASS - Windows host boundary is ready for Phase 05
-
-
-
-STAGE CREDENTIAL_PROMPT
-STAGE OPEN_DC01_SESSION
-STAGE OPEN_CL02_SESSION
-STAGE DC01_CONFIGURATION_ASSERTIONS
-Default Domain Policy saved settings and effective password policy: PASS
-Administrator PSO and resultant policy: PASS
-
-
-DefaultDomainPolicyId : 31b2f340-016d-11d2-945f-00c04fb984f9
-BaselineGpoId         : 3d5e8657-4b90-4364-b026-2bad36ea027f
-DriveMapsGpoId        : 07473a8a-8c5f-4296-b09a-c7e7f6149ef7
-Result                : DC01_CONFIGURATION_ASSERTIONS_PASS
-PSComputerName        : DC01
-RunspaceId            : f50f5aa8-03e2-49b7-8f4c-a007a0c0194e
-
-
-
-STAGE FINAL_GPO_REPORTS_AND_BACKUPS
-GPO_EVIDENCE_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\gpo-configuration-backup-20261028-182023968
-STAGE CL02_COMPUTER_GPRESULT_EXPORT
-
-
-GpResultPath   : C:\Users\ADMINI~1\AppData\Local\Temp\phase05-computer-gpresult-20261028-182023968.xml
-Result         : CL02_GPRESULT_EXPORTED
-PSComputerName : CL02
-RunspaceId     : a61e6b2b-895a-42c4-83fe-c3261cb9f2f4
-
-
-
-
-CL02_COMPUTER_GPRESULT_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\CL02-computer-gpresult-20261028-182023968.xml
-STAGE CL02_EFFECTIVE_REGISTRY_ASSERTIONS
-CL02_EFFECTIVE_REGISTRY_ASSERTIONS_PASS
-CONFIGURATION_AND_REGISTRY_PASS_RSOP_HR_INTERACTIVE_PENDING
-Remaining required evidence: inspect the copied CL02 RSOP XML to verify applied GPO structure; normal non-elevated HUFFLAB\hr.jones H: test after sign-out/sign-in; interactive logon-banner observation; screenshots required by the runbook. No Phase 06 checkpoint was created.
-
-SOURCE: docs\evidence\phase-05\computer-rsop-verification.txt
-SHA256: 7DEAC3500ECA5C090B18AD779687A710C18DA9B9564F3D862855B424DA668B63
-LATEST CL02 COMPUTER RSOP ASSERTIONS: PASS
-Local source SHA256: C33B156ACB6F294728A6623A505269A99242A2EE7A54EB9BD91A3A48B7D464B4
-GPO: GPO-C-Workstation-Baseline
-Identifier: {3d5e8657-4b90-4364-b026-2bad36ea027f}
-AD/SYSVOL version: 12
-Enabled=True; IsValid=True; FilterAllowed=True; AccessDenied=False.
-Applied OU: hufflab.internal/HUFFLAB/Workstations
-Full RSOP XML is retained locally and excluded from Git.
-Final checkpoint boundary remains unverified.
-
-SOURCE: docs\evidence\phase-05\hr-user-verification.txt
-SHA256: 04FDEEAF188251EEE457C451A8D930711DD9667154C06FDB02BD233BA117A667
-Source: operator-pasted CL02 normal user console output, 2026-10-28 03:54:47 EDT.
-The following is preserved from the operator's message. It is user-session evidence;
-the finalizer separately checks fresh saved user RSOP before checkpoints.
-
-PS C:\Users\hr.jones> whoami
-hufflab\hr.jones
-PS C:\Users\hr.jones> Get-PSDrive H | Select-Object Name,Root,DisplayRoot
-
-Name Root DisplayRoot
----- ---- -----------
-H    H:\  \\DC01\HRShare
-
-PS C:\Users\hr.jones> Test-Path H:\
-True
-PS C:\Users\hr.jones> gpresult /scope user /r
-
-Created on 10/28/2026 at 3:54:47 AM
-
-RSOP data for HUFFLAB\hr.jones on CL02 : Logging Mode
-------------------------------------------------------
-OS Configuration:            Member Workstation
-OS Version:                  10.0.26200
-Site Name:                   N/A
-Roaming Profile:             N/A
-Local Profile:               C:\Users\hr.jones
-Connected over a slow link?: No
-
-USER SETTINGS
---------------
-    CN=hr.jones,OU=HR,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal
-    Last time Group Policy was applied: 10/28/2026 at 3:53:35 AM
-    Group Policy was applied from:      DC01.hufflab.internal
-    Group Policy slow link threshold:   500 kbps
-    Domain Name:                        HUFFLAB
-    Domain Type:                        Windows 2008 or later
-
-    Applied Group Policy Objects
-    -----------------------------
-        GPO-U-IT-DriveMaps
-
-    The following GPOs were not applied because they were filtered out
-    -------------------------------------------------------------------
-        Local Group Policy
-            Filtering:  Not Applied (Empty)
-
-    The user is a part of the following security groups
-    ---------------------------------------------------
-        Domain Users
-        Everyone
-        BUILTIN\Users
-        NT AUTHORITY\INTERACTIVE
-        CONSOLE LOGON
-        NT AUTHORITY\Authenticated Users
-        This Organization
-        LOCAL
-        RG-HR-Staff
-        Authentication authority asserted identity
-        AG-Share-HR-Modify
-        Medium Mandatory Level
-
-PASS: visible approved banner, docs/evidence/phase-05/cl02-logon-banner.png.
-PASS: configured GPO links and HR-targeted preference asserted by the configuration verifier.
-PENDING: remaining GPMC link/target screenshots; use docs/handoffs/phase-05-verification-checklist.md.
-PENDING: fresh finalizer PASS and standard pre-phase-06 checkpoints on DC01 and CL02.
-Last saved finalizer run is 2026-10-28 04:25 FAIL at the Drive Maps targeting assertion. The newer configuration pass is not a checkpoint record.
-Physical USB and timed inactivity behavior are not exercised in this evidence.
-PHASE 05 FINAL GATE: PENDING
+Evidence: docs/evidence/phase-05/README.md and supplied PNGs.
+Raw RSOP/GPMC exports/backups remain local and excluded from Git.
+Physical USB and timed inactivity behavior were not exercised under the runbook safety qualifier.
+PR: https://github.com/lh1207/ad-pxe-lab/pull/6
+PHASE 05 FINAL GATE: PASS

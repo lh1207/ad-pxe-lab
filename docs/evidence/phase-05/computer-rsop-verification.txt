@@ -1,9 +1,10 @@
 LATEST CL02 COMPUTER RSOP ASSERTIONS: PASS
-Local source SHA256: C33B156ACB6F294728A6623A505269A99242A2EE7A54EB9BD91A3A48B7D464B4
+Local source: CL02-computer-gpresult-20261028-203958007.xml
+Local source SHA256: 224DD9B77545FE28DB2906E2A1EA2B3152BBC908998542C3218011C4A4038AF5
 GPO: GPO-C-Workstation-Baseline
 Identifier: {3d5e8657-4b90-4364-b026-2bad36ea027f}
 AD/SYSVOL version: 12
 Enabled=True; IsValid=True; FilterAllowed=True; AccessDenied=False.
 Applied OU: hufflab.internal/HUFFLAB/Workstations
 Full RSOP XML is retained locally and excluded from Git.
-Final checkpoint boundary remains unverified.
+Finalizer 203937775 verifies the Standard pre-phase-06 checkpoint boundary: PASS.

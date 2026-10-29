@@ -4,6 +4,13 @@ Run only on local Windows host WOLF, using the saved project at `C:\HyperV\ad-px
 The authoritative runbook is [05-gpo-suite.md](../../runbooks/05-gpo-suite.md).
 Keep credentials out of chat and evidence. Administrator recovery is already complete.
 
+> **Completion notice, 2026-10-28:** Phase 05 has passed its attended final gate. The finalizer
+> recorded Standard `pre-phase-06` checkpoints on DC01
+> (`69c63c35-f7aa-4dec-add4-37358ef7b111`) and CL02
+> (`56d7c809-6470-4737-a610-8477a10e4eb1`). The instructions below are retained as the executed
+> record; do not rerun them. Physical USB denial and the timed 900-second inactivity behavior were
+> not exercised because the runbook permits those tests only in a safe test window.
+
 For the short remaining acceptance list, use [verification checklist](phase-05-verification-checklist.md).
 
 ## 1. Initialize with a visible elevated host session
