@@ -1,0 +1,50 @@
+STAGE HOST_PREFLIGHT
+
+
+HostName                  : wolf
+IsWindows                 : True
+IsElevated                : True
+PowerShellEdition         : Desktop
+PowerShellVersion         : 5.1.26100.9711
+RepositoryRoot            : C:\HyperV\ad-pxe-lab
+RunningVMs                : CL02, DC01
+RunningMemoryGB           : 7.5
+PrePhase05Checkpoints     : DC01:pre-phase-05, CL02:pre-phase-05
+AutomaticCheckpoints      : Disabled on all lab VMs
+PowerShellDirectAvailable : True
+Result                    : PASS - Windows host boundary is ready for Phase 05
+
+
+
+STAGE CREDENTIAL_PROMPT
+STAGE RUN_CONFIGURATION_VERIFIER
+VERIFIER_RESULT_ACCEPTED
+STAGE COMPUTER_RSOP_ASSERTIONS
+STAGE CL02_USER_RSOP_AND_LIVE_ASSERTIONS
+USER_RSOP_COPIED C:\HyperV\ad-pxe-lab\docs\phase-05-session\CL02-user-gpresult-20261028-203937775.xml
+USER_RSOP_IDENTITY: HUFFLAB\hr.jones
+CL02 LIVE_ASSERTIONS_PASS
+STAGE DC01_FINAL_LIVE_ASSERTIONS
+DC01_FINAL_ASSERTIONS_PASS
+STAGE FINAL_HOST_PREFLIGHT_AND_CHECKPOINTS
+STAGE HOST_PREFLIGHT
+
+
+HostName                  : wolf
+IsWindows                 : True
+IsElevated                : True
+PowerShellEdition         : Desktop
+PowerShellVersion         : 5.1.26100.9711
+RepositoryRoot            : C:\HyperV\ad-pxe-lab
+RunningVMs                : CL02, DC01
+RunningMemoryGB           : 7.5
+PrePhase05Checkpoints     : DC01:pre-phase-05, CL02:pre-phase-05
+AutomaticCheckpoints      : Disabled on all lab VMs
+PowerShellDirectAvailable : True
+Result                    : PASS - Windows host boundary is ready for Phase 05
+
+
+
+CHECKPOINT DC01 ID=69c63c35-f7aa-4dec-add4-37358ef7b111 CreationTime=10/28/2026 8:40:21 PM State=Running
+CHECKPOINT CL02 ID=56d7c809-6470-4737-a610-8477a10e4eb1 CreationTime=10/28/2026 8:40:29 PM State=Running
+PHASE 05 FINAL GATE: PASS

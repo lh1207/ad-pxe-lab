@@ -27,12 +27,10 @@
    complexity enabled, history 24, and maximum age 90 days. Do not create a separate password
    GPO; domain password policy belongs only in Default Domain Policy.
 
-   PowerShell equivalent:
-
-   ```powershell
-   Set-ADDefaultDomainPasswordPolicy -Identity 'hufflab.internal' -MinPasswordLength 14 `
-     -ComplexityEnabled $true -PasswordHistoryCount 24 -MaxPasswordAge (New-TimeSpan -Days 90)
-   ```
+   Edit these settings in GPMC so the Default Domain Policy GPO remains their source. The
+   `Set-ADDefaultDomainPasswordPolicy` cmdlet changes the domain object's password attributes;
+   it does not author the GPO security template and is not an equivalent GPO-editing command.
+   Verify both the saved GPO settings and the effective domain policy after policy refresh.
 
 2. For the fine-grained password-policy drill, in **Active Directory Administrative Center** →
    **Tree View** → `hufflab.internal` → **System** → **Password Settings Container**, choose
@@ -45,9 +43,16 @@
    ```powershell
    New-ADFineGrainedPasswordPolicy -Name 'PSO-Admins-Strong' -Precedence 10 `
      -ComplexityEnabled $true -MinPasswordLength 16 -PasswordHistoryCount 24 `
-     -MaxPasswordAge (New-TimeSpan -Days 60) -LockoutThreshold 5
+     -MaxPasswordAge (New-TimeSpan -Days 60) -MinPasswordAge (New-TimeSpan -Days 1) `
+     -LockoutThreshold 5 -LockoutDuration (New-TimeSpan -Minutes 10) `
+     -LockoutObservationWindow (New-TimeSpan -Minutes 10) `
+     -ReversibleEncryptionEnabled $false -ProtectedFromAccidentalDeletion $true
    Add-ADFineGrainedPasswordPolicySubject -Identity 'PSO-Admins-Strong' -Subjects 'adm-lhuff'
    ```
+
+   The explicit minimum age and lockout time spans retain this lab's verified domain defaults;
+   the PSO deliberately strengthens length, maximum age, and lockout threshold. If those domain
+   defaults have changed, inspect the discrepancy before running the initialization helper.
 
 3. In **Group Policy Management**, right-click the **Workstations** OU → **Create a GPO in this
    domain, and Link it here**. Name it `GPO-C-Workstation-Baseline`, then edit it. Configure:
@@ -84,20 +89,23 @@
    New-GPLink -Name 'GPO-U-IT-DriveMaps' -Target 'OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal'
    ```
 
-5. On CL02, sign in first as `HUFFLAB\hr.jones`. Open an elevated Command Prompt and run a policy
-   refresh, then sign out and back in so user preferences apply. Confirm `H:` opens
-   `\\DC01\HRShare`; the access is governed by the Phase 03 AGDLP chain.
+5. On CL02, sign in first as `HUFFLAB\hr.jones`. Open a normal, non-elevated PowerShell or Command
+   Prompt and refresh **user** policy, then sign out and back in so user preferences apply. Confirm
+   `H:` opens `\\DC01\HRShare`; the access is governed by the Phase 03 AGDLP chain. Do not elevate
+   with a different administrator for this check because that changes the user context and can hide
+   or misattribute the mapped drive.
 
    PowerShell equivalent:
 
    ```powershell
-   gpupdate /force
+   gpupdate /target:user /force
    Get-PSDrive -Name H
    ```
 
-6. On CL02, force computer policy, wait for the 900-second inactivity behavior only in a safe
-   test window, and use a removable USB device only if safe for the host. Confirm the interactive
-   logon banner at the next logon and that removable storage is denied.
+6. On CL02, use a separate elevated administrator session to force computer policy. Wait for the
+   900-second inactivity behavior only in a safe test window, and use a removable USB device only
+   if safe for the host. Confirm the interactive logon banner at the next logon and that removable
+   storage is denied.
 
    PowerShell equivalent:
 
@@ -149,7 +157,8 @@ backups before material edits.
   `Get-ADComputer CL02 -Properties DistinguishedName`; run `gpupdate /force` and inspect
   `gpresult /r` as an administrator.
 - **`H:` is missing:** verify `hr.jones` is a direct or nested member of `RG-HR-Staff` with
-  `Get-ADPrincipalGroupMembership hr.jones`, then log off and on after `gpupdate /force`.
+  `Get-ADPrincipalGroupMembership hr.jones`, then log off and on after
+  `gpupdate /target:user /force` in the normal `hr.jones` session.
 - **`H:` maps but access is denied:** test `Test-Path '\\DC01\HRShare'` and review the Phase 03
   share and NTFS ACLs for `AG-Share-HR-Modify`; a mapped drive does not grant permissions.
 - **Password setting appears ignored:** domain password settings must be in Default Domain Policy;

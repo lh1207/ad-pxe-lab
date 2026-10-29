@@ -1,0 +1,59 @@
+Source: operator-pasted CL02 normal user console output, 2026-10-28 03:54:47 EDT.
+The following is preserved from the operator's message. It is user-session evidence;
+the finalizer separately checks fresh saved user RSOP before checkpoints.
+
+PS C:\Users\hr.jones> whoami
+hufflab\hr.jones
+PS C:\Users\hr.jones> Get-PSDrive H | Select-Object Name,Root,DisplayRoot
+
+Name Root DisplayRoot
+---- ---- -----------
+H    H:\  \\DC01\HRShare
+
+PS C:\Users\hr.jones> Test-Path H:\
+True
+PS C:\Users\hr.jones> gpresult /scope user /r
+
+Created on 10/28/2026 at 3:54:47 AM
+
+RSOP data for HUFFLAB\hr.jones on CL02 : Logging Mode
+------------------------------------------------------
+OS Configuration:            Member Workstation
+OS Version:                  10.0.26200
+Site Name:                   N/A
+Roaming Profile:             N/A
+Local Profile:               C:\Users\hr.jones
+Connected over a slow link?: No
+
+USER SETTINGS
+--------------
+    CN=hr.jones,OU=HR,OU=Users,OU=HUFFLAB,DC=hufflab,DC=internal
+    Last time Group Policy was applied: 10/28/2026 at 3:53:35 AM
+    Group Policy was applied from:      DC01.hufflab.internal
+    Group Policy slow link threshold:   500 kbps
+    Domain Name:                        HUFFLAB
+    Domain Type:                        Windows 2008 or later
+
+    Applied Group Policy Objects
+    -----------------------------
+        GPO-U-IT-DriveMaps
+
+    The following GPOs were not applied because they were filtered out
+    -------------------------------------------------------------------
+        Local Group Policy
+            Filtering:  Not Applied (Empty)
+
+    The user is a part of the following security groups
+    ---------------------------------------------------
+        Domain Users
+        Everyone
+        BUILTIN\Users
+        NT AUTHORITY\INTERACTIVE
+        CONSOLE LOGON
+        NT AUTHORITY\Authenticated Users
+        This Organization
+        LOCAL
+        RG-HR-Staff
+        Authentication authority asserted identity
+        AG-Share-HR-Modify
+        Medium Mandatory Level

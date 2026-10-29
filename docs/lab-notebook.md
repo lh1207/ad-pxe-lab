@@ -49,7 +49,7 @@ directory backup for Phase 01 because no VM checkpoint exists before the lab VMs
 | 02 | 2026-07-22 | 2026-07-22 | `pre-phase-03` | 2026-07-22 | Windows Server 2025 forest, AD-integrated DNS, DNS forwarders/scavenging, static network, and authorized DHCP scope verified. |
 | 03 | 2026-07-22 | 2026-08-03 | `pre-phase-04` | 2026-08-03 | OU/account/group structure and AGDLP share passed the runbook verification; only DC01 remains running. |
 | 04 | 2026-08-10 | 2026-08-11 | `pre-phase-05` on DC01, WDS01, and CL02 | 2026-08-11 | WDS01 delivered custom ADK WinPE by PXE; WinPE launched Windows 11 Enterprise Evaluation Setup from read-only `Win11Source`; CL02 joined the domain, landed in Workstations, and passed secure-channel and `lhuff` sign-in checks. |
-| 05 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
+| 05 | 2026-10-28 | 2026-10-28 | Standard `pre-phase-06` on DC01 (`69c63c35-f7aa-4dec-add4-37358ef7b111`) and CL02 (`56d7c809-6470-4737-a610-8477a10e4eb1`) | 2026-10-28 | Default Domain Policy, PSO, baseline and HR drive-map configuration pass; fresh computer/user RSOP, CL02 secure channel/DNS, DC01 services, and the DC01/CL02-only boundary pass. |
 | 06 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 07 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
 | 08 | _pending_ | _pending_ | _record per runbook_ | _pending_ | |
@@ -90,6 +90,18 @@ and its successful rerun remain distinguishable.
 | 2026-08-10 | 04 | CL02 domain membership inspection | Name `CL02`; domain `hufflab.internal`; `PartOfDomain=True`; Windows 11 Enterprise Evaluation | Passed exactly | `docs/evidence/phase-04/cl02-domain-membership.png` | None. |
 | 2026-08-11 | 04 | Interactive sign-in and `whoami` | Normal domain user authenticates on CL02 | `hufflab\lhuff` signed in successfully | `docs/evidence/phase-04/cl02-lhuff-domain-signin.png` | The nine Phase 03 lab identities were reset to an operator-chosen temporary lab password because their generated values were intentionally never stored. No password was recorded in evidence. |
 | 2026-08-11 | 04 | Final elevated Phase 04 gate | WDS installed/running; exact custom image enabled; zero WDS install images; read-only setup share; no DHCP 60/66/67; exact CL02 DN; secure channel true; vTPM/Secure Boot/80 GB; standard `pre-phase-05` checkpoints | Every assertion passed; DC01, WDS01, and CL02 checkpoints created between 21:16:12 and 21:16:22 | `docs/phase-04-configuration-verification.txt`; `docs/evidence/phase-04/phase-04-final-gate-and-checkpoints.png` | CL01, CM01, and REF01 remained off; automatic checkpoints remained disabled on all six VMs. |
+
+### Phase 05 verified evidence — final gate passed
+
+| Date | Check | Observed result | Evidence |
+|---|---|---|---|
+| 2026-10-28 | Source and effective policy | DDP template/effective policy 14/True/24/90 days; the explicit PSO; workstation baseline; HR-targeted H: preference; and CL02 effective registry pass | `docs/phase-05-configuration-verification.txt`; `docs/evidence/phase-05/configuration-verifier.txt` |
+| 2026-10-28 | GPMC link and targeting evidence | Workstations and Users each have the required enabled, non-enforced link; the single H: item is Update, maps `\\DC01\HRShare`, and has positive `RG-HR-Staff` targeting | `docs/evidence/phase-05/gpmc-workstations-link.png`; `gpmc-users-link.png`; `hr-drive-map-item.png`; `hr-drive-map-targeting.png` |
+| 2026-10-28 | CL02 interactive acceptance | Approved regular-hyphen banner is visible; normal `hufflab\hr.jones` maps and accesses H:, and fresh finalizer RSOP confirms the drive-map GPO applies | `docs/evidence/phase-05/cl02-logon-banner.png`; `hr-user-verification.txt`; `phase-05-final-gate-and-checkpoints.png` |
+| 2026-10-28 | Completion boundary | Finalizer passes fresh configuration, computer/user RSOP, domain/service and VM-boundary checks, then creates one Standard `pre-phase-06` checkpoint on each VM | `docs/phase-05-configuration-verification.txt`; `docs/evidence/phase-05/phase-05-final-gate-and-checkpoints.png` |
+
+Physical USB denial and the timed 900-second inactivity behavior were not exercised because the
+runbook permits those tests only when a safe test window and disposable device are available.
 
 ## Rollback and variance log
 
