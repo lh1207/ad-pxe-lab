@@ -65,7 +65,7 @@ credential prompts, password managers, product keys and unrelated personal windo
 - [x] Codex inspected the finalizer transcript, user/computer RSOP and checkpoint records.
 - [x] Notebook and canonical Phase 05 final gate are updated from actual evidence.
 - [x] Publication is open as [PR #6](https://github.com/lh1207/ad-pxe-lab/pull/6).
-- [ ] Root saves the completed project-memory receipt.
+- [x] Root saves the completed project-memory note and local receipt.
 
 Physical USB denial and the timed 900-second lock behavior have not been recorded as exercised.
 Only test those in a safe lab window with a disposable device; otherwise retain the explicit
